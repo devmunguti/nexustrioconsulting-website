@@ -3,8 +3,8 @@ import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
 import StatsSection from '../components/sections/StatsSection'
 import heroImage from '../assets/reference-1.jpg'
-import auditImage from '../assets/reference-3.jpg'
-import advisoryImage from '../assets/reference-4.jpg'
+import nicholasMuasaImage from '../assets/nicholas-muasa.jpeg'
+import jacobKiokoImage from '../assets/jacob-kioko.jpeg'
 import ngoImage from '../assets/reference-5.jpg'
 import smeImage from '../assets/reference-6.jpg'
 import corporateImage from '../assets/reference-7.jpg'
@@ -84,8 +84,8 @@ function Home() {
                 <div className="intro-actions"><a className="gold-button" href="#services">About Our Firm</a><span>✓ <b>ICPAK Affiliated Experts</b></span></div>
               </div>
               <div className="arch-gallery">
-                <div className="arch arch-one"><img src={auditImage} alt="Compliance consultant reviewing records" /></div>
-                <div className="arch arch-two"><img src={advisoryImage} alt="Corporate financial advisory consultation" /></div>
+                <div className="arch arch-one"><img src={nicholasMuasaImage} alt="CPA Nicholas Muasa" /></div>
+                <div className="arch arch-two"><img src={jacobKiokoImage} alt="CPA Jacob Kioko" /></div>
                 <div className="experience-badge"><strong>10+</strong><span>YEARS OF <b>EXCELLENCE</b></span></div>
               </div>
             </div>
