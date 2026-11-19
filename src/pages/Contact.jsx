@@ -14,7 +14,7 @@ function Contact() {
         </div>
       </section>
 
-      <section className="contact-main">
+      <section className="contact-main" id="contact-main">
         <div className="container contact-main-grid">
           <aside className="contact-office-column">
             <div className="contact-intro">

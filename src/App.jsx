@@ -7,11 +7,15 @@ import FAQ from './pages/FAQ'
 import Contact from './pages/Contact'
 import Consultation from './pages/Consultation'
 import ServiceDetail from './pages/ServiceDetail'
+import Footer from './components/sections/Footer'
 import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
   const [route, setRoute] = useState(window.location.hash)
+  const routeParts = route.split('#')
+  const routePath = routeParts[1] ? `#${routeParts[1]}` : route
+  const targetId = routeParts[2]
 
   useEffect(() => {
     const updateRoute = () => setRoute(window.location.hash)
@@ -19,15 +23,36 @@ function App() {
     return () => window.removeEventListener('hashchange', updateRoute)
   }, [])
 
-  if (route === '#/services') return <Services />
-  if (route === '#/about') return <About />
-  if (route === '#/who-we-serve') return <WhoWeServe />
-  if (route === '#/why-us') return <WhyUs />
-  if (route === '#/faq') return <FAQ />
-  if (route === '#/contact') return <Contact />
-  if (route === '#/consultation') return <Consultation />
-  if (route.startsWith('#/services/')) return <ServiceDetail />
-  return <Home />
+  useEffect(() => {
+    if (!targetId) return undefined
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [targetId, route])
+
+  let page
+  if (routePath === '#/services') page = <Services />
+  else if (routePath === '#/about') page = <About />
+  else if (routePath === '#/who-we-serve') page = <WhoWeServe />
+  else if (routePath === '#/why-us') page = <WhyUs />
+  else if (routePath === '#/faq') page = <FAQ />
+  else if (routePath === '#/contact') page = <Contact />
+  else if (routePath === '#/consultation') page = <Consultation />
+  else if (routePath.startsWith('#/services/')) page = <ServiceDetail />
+  else page = <Home />
+
+  return (
+    <>
+      {page}
+      <Footer />
+    </>
+  )
 }
 
 export default App

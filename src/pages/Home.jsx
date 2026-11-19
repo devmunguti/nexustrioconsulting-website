@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
+import CtaRay from '../components/sections/CtaRay'
+import StatsSection from '../components/sections/StatsSection'
 import heroImage from '../assets/reference-1.jpg'
 import auditImage from '../assets/reference-3.jpg'
 import advisoryImage from '../assets/reference-4.jpg'
@@ -70,6 +71,8 @@ function Home() {
           </div>
         </section>
 
+        <StatsSection />
+
         <section className="section intro-section" id="about">
           <div className="container">
             <div className="section-heading"><h2>Expertise that keeps you <span>compliant and growing</span></h2><i /></div>
@@ -121,7 +124,7 @@ function Home() {
           </div>
         </section>
 
-        <section className="testimonial-section">
+        <section className="testimonial-section" id="testimonials">
           <div className="container testimonial-card">
             <div className="testimonial-author">
               <span className="eyebrow">Client Validation</span><h3>Partnering with Proven Leaders</h3>
@@ -189,11 +192,10 @@ function Home() {
         </section>
 
         <section className="cta-section">
+          <CtaRay />
           <div className="container cta-copy"><span>Ready for Complete Peace of Mind?</span><h2>Need help with tax compliance or <b>donor reporting?</b></h2><p>Speak with a certified consultant today and safeguard your financial integrity with tailored, rigorous oversight.</p><div><a className="gold-button" href="#contact">Book a Free Consultation <b>▣</b></a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

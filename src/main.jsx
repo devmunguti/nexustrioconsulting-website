@@ -2,9 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import LogoNavPreloader from './components/LogoNavPreloader.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <>
+      <LogoNavPreloader />
+      <App />
+    </>
   </StrictMode>,
 )

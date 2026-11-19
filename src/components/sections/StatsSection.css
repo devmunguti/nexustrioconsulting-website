@@ -1,0 +1,204 @@
+.stats-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-dark);
+  color: var(--footer-text);
+}
+
+.stats-section .section-heading {
+  margin-bottom: 38px;
+}
+
+.stats-section .section-heading h2 {
+  color: var(--footer-text);
+}
+
+.stats-section .section-heading > p {
+  color: var(--footer-muted);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 24px;
+  text-align: center;
+  transition: transform 220ms ease;
+}
+
+.stats-card:not(:nth-child(4n)) {
+  border-right: 1px solid var(--footer-divider);
+}
+
+.stats-card__number {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--gold);
+  font-family: 'Marcellus', serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stats-card__number::after {
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  width: 42px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  content: '';
+  opacity: 0.8;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 220ms ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+}
+
+.stats-card:hover .stats-card__number::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.stats-card__label {
+  margin-top: 21px;
+  color: var(--footer-text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stats-card__description {
+  max-width: 28ch;
+  margin-top: 8px;
+  color: var(--footer-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.odometer-counter {
+  display: inline-flex;
+}
+
+.odometer-counter__visual {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.odometer-counter__adornment {
+  font: inherit;
+}
+
+.odometer-counter__digits {
+  position: relative;
+  display: inline-flex;
+}
+
+.odometer-counter__final {
+  display: inline-flex;
+  opacity: 1;
+  white-space: pre;
+}
+
+.odometer-counter__final--hidden {
+  opacity: 0;
+}
+
+.odometer-counter__rolling {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.odometer-counter__digit-window {
+  display: inline-block;
+  width: 0.62em;
+  height: 1em;
+  overflow: hidden;
+}
+
+.odometer-counter__digit-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.odometer-counter__digit,
+.odometer-counter__symbol {
+  display: inline-flex;
+  height: 1em;
+  flex: 0 0 1em;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.odometer-counter__screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 850px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-card:not(:nth-child(4n)) {
+    border-right: 0;
+  }
+
+  .stats-card:nth-child(odd) {
+    border-right: 1px solid var(--footer-divider);
+  }
+
+  .stats-card:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--footer-divider);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-section .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .stats-card {
+    padding: 20px 10px;
+  }
+
+  .stats-card__number {
+    font-size: clamp(2rem, 10vw, 2.7rem);
+  }
+
+  .stats-card__label {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stats-card,
+  .stats-card__number::after {
+    transition: none;
+  }
+
+  .stats-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,213 @@
+.faq-page-hero {
+  padding: 48px 0 54px;
+  border-bottom: 3px solid var(--gold);
+  background: linear-gradient(125deg, var(--navy), var(--navy-dark));
+  color: var(--footer-text);
+  text-align: center;
+}
+
+.faq-page-hero__inner {
+  max-width: 900px;
+}
+
+.faq-page-hero .breadcrumb {
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.faq-page-hero h1 {
+  color: var(--footer-text);
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.15;
+}
+
+.faq-page-hero > .container > p {
+  max-width: 680px;
+  margin: 14px auto 24px;
+  color: var(--footer-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.faq-page-search {
+  max-width: 620px;
+  display: grid;
+  gap: 8px;
+  margin: 0 auto;
+  color: var(--footer-text);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.faq-page-search input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--footer-text) 35%, transparent);
+  border-radius: 6px;
+  background: var(--footer-text);
+  color: var(--navy-dark);
+  font-size: 15px;
+}
+
+.faq-page-search input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.faq-page-search input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.faq-page-content {
+  min-height: 340px;
+  padding: 44px 0 68px;
+  background: var(--bg-light);
+}
+
+.faq-category-tabs {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  margin-bottom: 18px;
+  padding: 2px 2px 8px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.faq-category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.faq-category {
+  min-height: 44px;
+  flex: 0 0 auto;
+  padding: 0 15px;
+  border: 1px solid color-mix(in srgb, var(--navy) 15%, transparent);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.faq-category:hover {
+  border-color: var(--gold);
+}
+
+.faq-category:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.faq-category.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--navy-dark);
+}
+
+.faq-result-count {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.faq-page-content .faq-accordion__heading {
+  text-align: left;
+}
+
+.faq-page-content .faq-accordion__heading.section-heading {
+  max-width: none;
+  margin: 0 0 16px;
+}
+
+.faq-page-content .faq-accordion__heading h2 {
+  font-size: clamp(23px, 3vw, 30px);
+}
+
+.faq-page-empty {
+  padding: 32px;
+  border-top: 1px solid color-mix(in srgb, var(--navy) 12%, transparent);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.faq-page-empty a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+}
+
+.faq-page-cta {
+  padding: 38px 0;
+  background: var(--navy-dark);
+  color: var(--footer-text);
+}
+
+.faq-page-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.faq-page-cta h2 {
+  color: var(--footer-text);
+  font-size: clamp(26px, 3vw, 34px);
+}
+
+.faq-page-cta p {
+  margin-top: 8px;
+  color: var(--footer-muted);
+  font-size: 14px;
+}
+
+.faq-page-cta__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.faq-page-cta__actions > a:not(.gold-button) {
+  color: var(--footer-text);
+  font-size: 13px;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+}
+
+.faq-page-cta__actions a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .faq-page-hero {
+    padding: 38px 0 42px;
+  }
+
+  .faq-page-content {
+    padding: 30px 0 48px;
+  }
+
+  .faq-page-cta__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .faq-page-cta__actions {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-category {
+    transition: none;
+  }
+}

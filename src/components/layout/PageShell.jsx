@@ -1,5 +1,4 @@
 import Navbar from './Navbar'
-import Footer from './Footer'
 
 function PageShell({ active, eyebrow, title, lead, hideHero = false, children }) {
   return (
@@ -16,8 +15,6 @@ function PageShell({ active, eyebrow, title, lead, hideHero = false, children })
         </section>}
         {children}
       </main>
-
-      <Footer />
     </div>
   )
 }

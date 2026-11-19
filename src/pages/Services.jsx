@@ -1,45 +1,7 @@
 import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
-
-const serviceCatalog = [
-  {
-    icon: '$',
-    title: 'NGO and Project Financial Management',
-    description: 'Specialized fiduciary oversight guaranteeing full donor mandate adherence, accountability, and pristine audit trails.',
-    bullets: ['Transparent donor grant accounting and multi-currency tracking', 'Sub-grantee compliance monitoring', 'Donor budget preparation and procurement reviews', 'Pre-audit compliance health checks and audit trail readiness'],
-  },
-  {
-    icon: '▥',
-    title: 'Business Registration & Corporate Services',
-    description: 'Streamlined legal onboarding and complete company secretarial compliance across Kenyan regulatory frameworks.',
-    bullets: ['Company incorporation and registration via BRS Kenya', 'KRA PIN, eTIMS and statutory tax onboarding', 'Single business permits and sector licenses', 'Secretarial compliance and annual returns'],
-  },
-  {
-    icon: '▤',
-    title: 'Payroll and HR Administration',
-    description: 'Confidential, error-free monthly remuneration schedules with full Kenyan statutory compliance.',
-    bullets: ['Monthly PAYE, SHIF and NSSF computations', 'Affordable Housing Levy and statutory filings', 'Secure electronic payslip distribution', 'Employee statutory clearance and tax health checks'],
-  },
-  {
-    icon: '↗',
-    title: 'Business Advisory and Consultancy',
-    description: 'High-calibre financial models, institutional structuring and capital investment documentation.',
-    bullets: ['Strategic growth planning and restructuring', 'Dynamic financial models and cash flow forecasts', 'Investment decks and bankability studies', 'Institutional capacity and risk management'],
-  },
-  {
-    icon: '=',
-    title: 'Accounting & Financial Management',
-    description: 'Full-spectrum outsourced finance desk support using modern cloud ERP ecosystems.',
-    bullets: ['Outsourced bookkeeping and management accounts', 'Cash flow monitoring and bank reconciliations', 'QuickBooks, Xero, Sage and ERP integration', 'Financial health reports and board packs'],
-  },
-  {
-    icon: '⚖',
-    title: 'Tax Advisory and Compliance',
-    description: 'Strategic tax exposure mitigation and authoritative resolution of KRA queries.',
-    bullets: ['Corporate tax planning and CIT computations', 'VAT and KRA eTIMS integration', 'Withholding Tax and agency notices', 'Audit defense and dispute resolution'],
-  },
-]
+import CtaRay from '../components/sections/CtaRay'
+import { services } from '../data/services'
 
 const faqs = [
   ['Which KRA filings and statutory taxes do you handle?', 'We handle PAYE, SHIF, NSSF, Affordable Housing Levy, VAT, eTIMS, Corporate Income Tax, withholding tax and annual KRA returns.'],
@@ -77,8 +39,8 @@ function Services() {
           <div className="container">
             <div className="catalog-heading"><span>Practice Areas &amp; Expertise</span><h2>End-to-End Financial &amp; Statutory Solutions</h2><i /><p>Every business lifecycle phase demands precision. Explore our core service capabilities delivered by experienced consultants in Nairobi.</p></div>
             <div className="catalog-grid">
-              {serviceCatalog.map((service) => (
-                <article className="catalog-card" key={service.title}>
+              {services.map((service) => (
+                <article className="catalog-card" id={`service-${service.slug}`} key={service.slug}>
                   <div className="catalog-icon">{service.icon}</div>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
@@ -90,7 +52,7 @@ function Services() {
           </div>
         </section>
 
-        <section className="workflow-section">
+        <section className="workflow-section" id="how-we-work">
           <div className="container">
             <div className="workflow-heading"><span>Our Working Protocol</span><h2>How We Engage With Your Organization</h2></div>
             <div className="workflow-grid">
@@ -137,11 +99,10 @@ function Services() {
         </section>
 
         <section className="cta-section">
+          <CtaRay />
           <div className="container cta-copy"><span>Ready for Complete Peace of Mind?</span><h2>Need Help With Tax Compliance or <b>Donor Reporting?</b></h2><i /><p>Speak with a certified consultant today and safeguard your financial integrity with tailored, rigorous oversight.</p><div><a className="gold-button" href="#/consultation">Book a Free Consultation</a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

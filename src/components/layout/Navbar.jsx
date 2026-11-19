@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
 import landscapeLogo from '../../assets/nexus-trio-logo-landscape.png'
 
 const navItems = [
@@ -41,12 +42,24 @@ function Navbar({ active = '' }) {
             {navItems.map(([label, href]) => <a className={active === label ? 'active' : ''} href={href} key={label}>{label}</a>)}
           </div>
           <a className={`gold-button navbar-button ${active === 'Consultation' ? 'active-cta' : ''}`} href="#/consultation">Book a Consultation <span>→</span></a>
-          <button className="menu-button" type="button" aria-label="Toggle navigation" onClick={() => setMobileOpen(!mobileOpen)}>☰</button>
+          <button
+            className="menu-button"
+            type="button"
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-primary-navigation"
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
         </nav>
         {mobileOpen && (
-          <div className="mobile-menu">
+          <nav className="mobile-menu" id="mobile-primary-navigation" aria-label="Mobile navigation">
             {navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMobileOpen(false)}>{label}</a>)}
-          </div>
+            <a className="gold-button mobile-menu__cta" href="#/consultation" onClick={() => setMobileOpen(false)}>
+              Book a Consultation <span aria-hidden="true">→</span>
+            </a>
+          </nav>
         )}
       </header>
     </>

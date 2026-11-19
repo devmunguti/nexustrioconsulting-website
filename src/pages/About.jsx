@@ -1,5 +1,7 @@
 import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
+import CtaRay from '../components/sections/CtaRay'
+import jacobKiokoImage from '../assets/jacob-kioko.jpeg'
+import nicholasMuasaImage from '../assets/nicholas-muasa.jpeg'
 
 const pillars = [
   ['01', 'Deep Regulatory Insight', 'Rigorous interpretation of the Kenya Revenue Authority framework, eTIMS standards, National Treasury policies and county tax mandates.'],
@@ -19,6 +21,8 @@ const leaders = [
   ['PARTNER', 'Dr. Rosemary Kamau', 'Partner, NGO & Donor Fiduciary', 'Ph.D. Dev. Finance / CPA-K', 'Specialist in grant compliance, consortium monitoring and fiduciary standards for USAID, EU and Global Fund operations.', 'Grant Assurance'],
   ['TAX DIRECTOR', 'Sarah Ochieng, CPA', 'Senior Tax Director & KRA Disputes', 'KRA Registered Tax Agent', 'Directs dispute resolution with deep mastery of transfer pricing, customs valuation and corporate excise duties.', 'Tribunal & KRA Practice'],
   ['TECH LEAD', 'Brian Kiprono', 'Head of Accounting Tech & eTIMS', 'ERP & API Integration Lead', 'Specializes in ERP-to-eTIMS middleware, automated VAT reconciliations and digital workflow migrations.', 'eTIMS Systems'],
+  ['ACCOUNTING TEAM LEAD', 'CPA JACOB KIOKO', 'Team lead -Accounting', 'CPA', 'Leads the accounting team, supporting clear and accurate financial reporting.', 'Accounting', jacobKiokoImage],
+  ['LEADERSHIP TEAM', 'CPA Nicholas Muasa, Msc', '', 'CPA · MSc', 'Brings his accounting expertise and professional qualifications to the firm’s leadership and client work.', 'Leadership Team', nicholasMuasaImage, true],
 ]
 
 function About() {
@@ -85,10 +89,10 @@ function About() {
           <div className="container">
             <div className="leadership-heading"><div><span>Our Stewards</span><h2>Leadership &amp; Senior Partners</h2></div><p>Led by accredited Certified Public Accountants with experience across Big Four firms, revenue authorities and global non-profits.</p></div>
             <div className="leader-grid">
-              {leaders.map(([role, name, title, credential, text, practice]) => (
+              {leaders.map(([role, name, title, credential, text, practice, image, containImage]) => (
                 <article className="leader-card" key={name}>
-                  <div className="leader-portrait"><div>♟</div><span>{role}</span></div>
-                  <div className="leader-info"><h3>{name}</h3><b>{title}</b><em>{credential}</em><p>{text}</p></div>
+                  <div className="leader-portrait">{image ? <img className={`leader-image${containImage ? ' leader-image--contain' : ''}`} src={image} alt={name} /> : <div>♟</div>}{role && <span>{role}</span>}</div>
+                  <div className="leader-info"><h3>{name}</h3>{title && <b>{title}</b>}{credential && <em>{credential}</em>}{text && <p>{text}</p>}</div>
                   <div className="leader-footer"><span>{practice}</span><a href="#linkedin" aria-label={`${name} LinkedIn`}>in</a></div>
                 </article>
               ))}
@@ -109,11 +113,10 @@ function About() {
         </section>
 
         <section className="cta-section" id="contact">
+          <CtaRay />
           <div className="container cta-copy"><span>Speak With Our Partners</span><h2>Need Guidance With Tax Compliance or Donor Grant Reporting?</h2><p>Whether you are navigating a KRA inquiry, transitioning to eTIMS or managing donor audits, our senior team is ready to evaluate your position under full NDA.</p><div><a className="gold-button" href="#/consultation">▣ Book a Free Consultation</a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }
