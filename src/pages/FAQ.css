@@ -48,11 +48,11 @@
   border-radius: 6px;
   background: var(--footer-text);
   color: var(--navy-dark);
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .faq-page-search input:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .faq-category:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 

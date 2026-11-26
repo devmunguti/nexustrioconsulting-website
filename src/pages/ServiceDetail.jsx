@@ -1,5 +1,6 @@
 import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
+import Button from '../components/ui/Button'
 import FaqAccordion from '../components/sections/FaqAccordion'
 import FaqPageJsonLd from '../components/sections/FaqPageJsonLd'
 import Glossary from '../components/sections/Glossary'
@@ -30,7 +31,7 @@ function ServiceDetail() {
               ))}
             </ul>
           )}
-          <a className="gold-button" href="#/consultation">Book a consultation</a>
+          <Button href="#/consultation">Book a consultation</Button>
         </div>
       </section>
       <Glossary />

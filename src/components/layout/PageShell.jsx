@@ -5,7 +5,7 @@ function PageShell({ active, eyebrow, title, lead, hideHero = false, children })
     <div className="inner-page">
       <Navbar active={active} />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex="-1">
         {!hideHero && <section className="inner-hero">
           <div className="container">
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>{eyebrow}</b></nav>

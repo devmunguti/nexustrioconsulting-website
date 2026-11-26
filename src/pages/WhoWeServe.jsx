@@ -1,6 +1,7 @@
 import PageShell from '../components/layout/PageShell'
 import TestimonialSection from '../components/sections/TestimonialSection'
 import PageMetadata from '../components/layout/PageMetadata'
+import SectionHeading from '../components/ui/SectionHeading'
 import { siteConfig } from '../data/siteConfig'
 
 const sectors = [
@@ -62,11 +63,12 @@ function WhoWeServe() {
 
       <section className="who-sectors">
         <div className="container">
-          <div className="who-section-heading">
-            <span>Who we help</span>
-            <h2>Support for your organisation or business</h2>
-            <p>Targeted accounting, tax, payroll and advisory support shaped around your entity.</p>
-          </div>
+          <SectionHeading
+            className="who-section-heading"
+            eyebrow="Who we help"
+            title="Support for your organisation or business"
+            description="Targeted accounting, tax, payroll and advisory support shaped around your entity."
+          />
 
           {sectors.map((sector) => {
             const points = sectorPoints?.[sector.category] ?? []

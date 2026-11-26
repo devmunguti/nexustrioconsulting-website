@@ -118,7 +118,7 @@ function Footer() {
 
   return (
     <>
-      <footer className="snapshot-footer">
+      <footer className={whatsapp?.href ? 'snapshot-footer snapshot-footer--has-whatsapp' : 'snapshot-footer'}>
         <div className="snapshot-footer__container">
           <section className="snapshot-footer__cta" aria-labelledby="footer-cta-heading">
             <div>
@@ -140,7 +140,7 @@ function Footer() {
             <motion.section className="snapshot-footer__brand" variants={columnVariants}>
               <h2 className="snapshot-footer__sr-only">About {footerData.companyName}</h2>
               <a className="snapshot-footer__logo" href="#/" aria-label={`${footerData.companyName} home`}>
-                <img src={companyLogo} alt={footerData.logoAlt} width="750" height="504" />
+                <img src={companyLogo} alt={footerData.logoAlt} width="750" height="504" loading="lazy" decoding="async" />
               </a>
               <p>{footerData.description}</p>
               <SocialLinks />
@@ -168,6 +168,18 @@ function Footer() {
 
           <div className="snapshot-footer__bottom">
             <p>© {COPYRIGHT_YEAR} {footerData.companyName}. {footerData.copyrightSuffix}</p>
+            <p className="snapshot-footer__credit">
+              Website developer {' '}
+              <a
+                className="snapshot-footer__link"
+                href="https://augustinemunguti.co.ke/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Augustine Munguti portfolio (opens in a new tab)"
+              >
+                      augustinemunguti.co.ke <span aria-hidden="true">↗</span>
+              </a>
+            </p>
             <nav className="snapshot-footer__legal" aria-label={footerData.navLabels.legal}>
               {footerData.legalLinks
                 .filter((link): link is typeof link & { href: string } => Boolean(link.href))
@@ -182,18 +194,6 @@ function Footer() {
         </div>
       </footer>
 
-      {whatsapp?.href && (
-        <a
-          className="whatsapp"
-          href={whatsapp.href}
-          aria-label={`Chat on ${whatsapp.label} ${footerData.opensInNewTab}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SocialIcon platform="whatsapp" />
-          <span>WhatsApp Advisors</span>
-        </a>
-      )}
     </>
   )
 }

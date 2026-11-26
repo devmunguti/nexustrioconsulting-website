@@ -1,4 +1,5 @@
 import Footer from './components/sections/Footer'
+import WhatsAppButton from './components/ui/WhatsAppButton'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import './App.css'
 
@@ -108,7 +109,12 @@ function App() {
         <HashTargetScroller targetId={targetId} />
         {page}
       </Suspense>
-      {routePath !== '#/admin/testimonials' && <Footer />}
+      {routePath !== '#/admin/testimonials' && (
+        <>
+          <Footer />
+          <WhatsAppButton />
+        </>
+      )}
     </>
   )
 }

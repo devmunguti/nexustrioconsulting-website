@@ -116,11 +116,11 @@
   resize: vertical;
 }
 
-.testimonial-module__consent {
+.testimonial-module__form .testimonial-module__consent {
   grid-template-columns: 20px 1fr;
   align-items: start;
-  font-size: 12px !important;
-  font-weight: 400 !important;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 1.55;
 }
 

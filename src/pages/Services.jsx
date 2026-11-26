@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
 import Glossary from '../components/sections/Glossary'
+import SectionHeading from '../components/ui/SectionHeading'
 import PageMetadata from '../components/layout/PageMetadata'
 import { services } from '../data/services'
 import { useInquiryForm } from '../hooks/useInquiryForm'
@@ -25,7 +26,7 @@ function Services() {
         description="Explore NGO project finance, business registration, payroll, business advisory, accounting and tax service areas from Nexus Trio Consulting."
       />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex="-1">
         <section className="services-hero">
           <div className="container">
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Our Services</b></nav>
@@ -47,15 +48,16 @@ function Services() {
 
         <section className="catalog-section" id="service-catalog">
           <div className="container">
-            <div className="catalog-heading">
-              <span>How we can help</span>
-              <h2>Services for organisations and business owners</h2>
-              <i />
-              <p>Explore our six specialized service areas designed for NGOs, businesses, and founders.</p>
-            </div>
+            <SectionHeading
+              className="catalog-heading"
+              eyebrow="How we can help"
+              title="Services for organisations and business owners"
+              description="Explore our six specialized service areas designed for NGOs, businesses, and founders."
+              divider
+            />
             <div className="catalog-grid">
               {services.map((service) => (
-                <article className="catalog-card" id={`service-${service.slug}`} key={service.slug}>
+                <article className="card catalog-card" id={`service-${service.slug}`} key={service.slug}>
                   <div className="catalog-icon">{service.icon}</div>
                   <h3>{service.headline}</h3>
                   <p>{service.summary}</p>
@@ -84,7 +86,13 @@ function Services() {
         <section className="services-faq-section" id="faq-section">
           <div className="container services-faq-grid">
             <div>
-              <div className="faq-heading"><span>Answers to common questions</span><h2>Frequently Asked Questions</h2><i /><p>Practical first steps for common business and tax questions.</p></div>
+              <SectionHeading
+                className="faq-heading"
+                eyebrow="Answers to common questions"
+                title="Frequently Asked Questions"
+                description="Practical first steps for common business and tax questions."
+                divider
+              />
               <div className="faq-list">
                 {faqs.map(([question, answer], index) => (
                   <article className={openFaq === index ? 'faq-item open' : 'faq-item'} key={question}>

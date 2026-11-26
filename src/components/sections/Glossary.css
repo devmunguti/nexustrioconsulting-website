@@ -77,3 +77,9 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .glossary-item[open] summary span {
+    transform: none;
+  }
+}

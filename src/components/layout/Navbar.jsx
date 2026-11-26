@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import Button from '../ui/Button'
 import landscapeLogo from '../../assets/nexus-trio-logo-landscape.png'
 import { siteConfig } from '../../data/siteConfig'
 
@@ -94,12 +95,22 @@ function Navbar({ active = '' }) {
         <div className="main-header">
           <nav className="container navbar" aria-label="Main navigation">
             <a className="brand" href="#/" aria-label="Nexus Trio Consulting home">
-              <img className="header-logo" src={landscapeLogo} alt="Nexus Trio Consulting Ltd" />
+              <img
+                className="header-logo"
+                src={landscapeLogo}
+                alt="Nexus Trio Consulting Ltd"
+                width="750"
+                height="220"
+                decoding="async"
+                fetchPriority="high"
+              />
             </a>
             <div className="nav-links">
               {navItems.map(([label, href]) => <a className={active === label ? 'active' : ''} href={href} key={label}>{label}</a>)}
             </div>
-            <a className={`gold-button navbar-button ${active === 'Consultation' ? 'active-cta' : ''}`} href="#/consultation">Book a consultation <span>→</span></a>
+            <Button href="#/consultation" className={`navbar-button ${active === 'Consultation' ? 'active-cta' : ''}`}>
+              Book a consultation <span>→</span>
+            </Button>
             <button
               ref={toggleRef}
               className="menu-button"
@@ -112,32 +123,36 @@ function Navbar({ active = '' }) {
               {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
             </button>
           </nav>
-          {mobileOpen && (
-            <nav ref={menuRef} className="mobile-menu" id="mobile-primary-navigation" aria-label="Mobile navigation">
-              {navItems.map(([label, href]) => (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={() => {
-                    setMobileOpen(false)
-                    toggleRef.current?.focus()
-                  }}
-                >
-                  {label}
-                </a>
-              ))}
+          <nav
+            ref={menuRef}
+            className="mobile-menu"
+            id="mobile-primary-navigation"
+            aria-label="Mobile navigation"
+            hidden={!mobileOpen}
+          >
+            {navItems.map(([label, href]) => (
               <a
-                className="gold-button mobile-menu__cta"
-                href="#/consultation"
+                key={label}
+                href={href}
                 onClick={() => {
                   setMobileOpen(false)
                   toggleRef.current?.focus()
                 }}
               >
-                Book a consultation <span aria-hidden="true">→</span>
+                {label}
               </a>
-            </nav>
-          )}
+            ))}
+            <Button
+              className="mobile-menu__cta"
+              href="#/consultation"
+              onClick={() => {
+                setMobileOpen(false)
+                toggleRef.current?.focus()
+              }}
+            >
+              Book a consultation <span aria-hidden="true">→</span>
+            </Button>
+          </nav>
         </div>
       </header>
     </>

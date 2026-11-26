@@ -84,7 +84,9 @@ function TestimonialsAdmin() {
   }
 
   return (
-    <main className="testimonial-admin" id="main-content">
+    <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+      <main className="testimonial-admin" id="main-content" tabIndex="-1">
       <div className="container">
         <a className="testimonial-admin__back" href="#/">← Back to website</a>
         <header className="testimonial-admin__header">
@@ -158,7 +160,8 @@ function TestimonialsAdmin() {
           </section>
         )}
       </div>
-    </main>
+      </main>
+    </>
   )
 }
 
