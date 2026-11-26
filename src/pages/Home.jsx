@@ -64,13 +64,19 @@ function Home() {
                 <Button href="#/#services" variant="outline">View Services</Button>
               </div>
             </div>
-            <div className="hero-image">
-              <ImagePlaceholder
-                label="African business team"
-                searchTerms="African business team discussing financial plans"
-                aspectRatio="16 / 9"
-                altText="A diverse African business team reviewing financial plans together"
-              />
+            <div className="hero-image hero-image--logo">
+              <div className="hero-image__logo-frame">
+                <img
+                  className="hero-image__logo"
+                  src={companyLogo}
+                  alt="Nexus Trio Consulting Ltd logo"
+                  width="750"
+                  height="220"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </div>
             </div>
           </div>
         </section>

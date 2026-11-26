@@ -115,6 +115,31 @@
 .button-size-lg { min-height: 52px; padding: 0 28px; font-size: 14px; }
 .navbar-button.button-size-md { min-height: 40px; }
 .hero-image { position: relative; min-width: 0; }
+.hero-image--logo {
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vw, 48px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 86% 20%, rgba(215,173,48,.2), transparent 30%),
+    linear-gradient(140deg, #e9eef3, #fff 60%, #f3f6f8);
+}
+.hero-image__logo-frame {
+  width: min(100%, 560px);
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 3vw, 38px);
+  border: 1px solid rgba(18,59,98,.12);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(10,35,60,.13);
+}
+.hero-image__logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 .image-badge { position: absolute; z-index: 2; left: 28px; right: 28px; bottom: 28px; max-width: 420px; min-height: 68px; display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-left: 4px solid var(--gold); border-radius: 10px; background: rgba(255,255,255,.94); color: var(--navy); box-shadow: 0 10px 30px rgba(10,35,60,.18); }
 .badge-icon { flex: 0 0 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: #f3e8bc; color: var(--navy); }
 .image-badge strong { display: block; font-size: 12px; }
@@ -339,6 +364,7 @@
   .hero-copy { min-height: 390px; padding: 44px 28px; }
   .hero-copy h1 { font-size: 38px; }
   .hero-image { height: 360px; }
+  .hero-image__logo-frame { min-height: 180px; }
   .trust-strip { height: auto; padding: 38px 0; }
   .trust-items { grid-template-columns: repeat(2,1fr); gap: 18px; }
   .intro-grid, .scope-grid, .faq-grid { grid-template-columns: 1fr; }
@@ -1115,6 +1141,8 @@
   .hero-copy h1 { margin: 14px 0; font-size: clamp(31px, 9vw, 38px); }
   .hero-lead { font-size: 13px; }
   .hero-image { height: 270px; }
+  .hero-image--logo { padding: 16px; }
+  .hero-image__logo-frame { min-height: 150px; padding: 16px; border-radius: 12px; }
   .image-badge { left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; }
   .image-badge strong { font-size: 10px; }
   .image-badge small { font-size: 8px; }
