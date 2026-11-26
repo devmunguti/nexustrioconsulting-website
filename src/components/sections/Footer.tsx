@@ -77,30 +77,22 @@ function FooterColumn({ title, navLabel, links }: FooterColumnProps) {
 }
 
 function SocialLinks() {
+  const activeSocials = footerData.socials.filter((social): social is typeof social & { href: string } => Boolean(social.href))
+  if (activeSocials.length === 0) return null
+
   return (
     <nav className="snapshot-footer__socials" aria-label={footerData.navLabels.social}>
       <ul>
-        {footerData.socials.map((social) => (
+        {activeSocials.map((social) => (
           <li key={social.platform}>
-            {social.href ? (
-              <a
-                href={social.href}
-                aria-label={`${social.label} ${footerData.opensInNewTab}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <SocialIcon platform={social.platform} />
-              </a>
-            ) : (
-              <span
-                className="snapshot-footer__social-unavailable"
-                role="img"
-                aria-label={social.todo ?? social.label}
-                title={social.todo}
-              >
-                <SocialIcon platform={social.platform} />
-              </span>
-            )}
+            <a
+              href={social.href}
+              aria-label={`${social.label} ${footerData.opensInNewTab}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialIcon platform={social.platform} />
+            </a>
           </li>
         ))}
       </ul>
@@ -129,7 +121,10 @@ function Footer() {
       <footer className="snapshot-footer">
         <div className="snapshot-footer__container">
           <section className="snapshot-footer__cta" aria-labelledby="footer-cta-heading">
-            <h2 id="footer-cta-heading">{footerData.cta.heading}</h2>
+            <div>
+              <h2 id="footer-cta-heading">{footerData.cta.heading}</h2>
+              {whatsapp?.href && <p className="snapshot-footer__whatsapp-note">Chat with us on WhatsApp</p>}
+            </div>
             <a className="snapshot-footer__button" href={footerData.cta.href}>
               {footerData.cta.label}<span aria-hidden="true">→</span>
             </a>
@@ -160,11 +155,13 @@ function Footer() {
                 <nav aria-label={footerData.navLabels.contact}>
                   <ul>
                     <li><a className="snapshot-footer__link" href={footerData.contact.email.href}>{footerData.contact.email.label}</a></li>
-                    <li><a className="snapshot-footer__link" href={footerData.contact.phone.href}>{footerData.contact.phone.label}</a></li>
+                    {footerData.contact.phone && (
+                      <li><a className="snapshot-footer__link" href={footerData.contact.phone.href}>{footerData.contact.phone.label}</a></li>
+                    )}
                   </ul>
                 </nav>
-                <p>{footerData.contact.address}</p>
-                <p>{footerData.contact.hours}</p>
+                {footerData.contact.address && <p>{footerData.contact.address}</p>}
+                {footerData.contact.hours && <p>{footerData.contact.hours}</p>}
               </address>
             </motion.section>
           </motion.div>
@@ -172,11 +169,11 @@ function Footer() {
           <div className="snapshot-footer__bottom">
             <p>© {COPYRIGHT_YEAR} {footerData.companyName}. {footerData.copyrightSuffix}</p>
             <nav className="snapshot-footer__legal" aria-label={footerData.navLabels.legal}>
-              {footerData.legalLinks.map((link) => (
-                link.href
-                  ? <a className="snapshot-footer__link" key={link.label} href={link.href}>{link.label}</a>
-                  : <span key={link.label} title={link.todo}>{link.label}</span>
-              ))}
+              {footerData.legalLinks
+                .filter((link): link is typeof link & { href: string } => Boolean(link.href))
+                .map((link) => (
+                  <a className="snapshot-footer__link" key={link.label} href={link.href}>{link.label}</a>
+                ))}
             </nav>
             <button className="snapshot-footer__back-top" type="button" onClick={scrollToTop}>
               {footerData.backToTop} <span aria-hidden="true">↑</span>

@@ -1,120 +1,136 @@
 import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
-import jacobKiokoImage from '../assets/jacob-kioko.jpeg'
-import nicholasMuasaImage from '../assets/nicholas-muasa.jpeg'
-
-const pillars = [
-  ['01', 'Deep Regulatory Insight', 'Rigorous interpretation of the Kenya Revenue Authority framework, eTIMS standards, National Treasury policies and county tax mandates.'],
-  ['02', 'Strategic Opportunity', 'Commercial advisory, capital readiness, cost restructuring and corporate modeling for secure business growth.'],
-  ['03', 'Fiduciary Success', 'Audit defense, institutional transparency and financial controls for international donors and cross-border partnerships.'],
-]
-
-const guarantees = [
-  ['⚖', 'Fiduciary Integrity', 'Ethical governance and absolute adherence to legal statutes and donor mandates.'],
-  ['◎', 'Technical Precision', 'Zero tolerance for miscalculations across eTIMS, VAT reconciliations and payroll.'],
-  ['▣', 'Client Confidentiality', 'Institutional-grade data protection governed by NDAs and secure fiscal repositories.'],
-  ['↯', 'Agile Problem-Solving', 'Rapid regulatory dispute mitigation and proactive risk adjustments before deadlines.'],
-]
-
-const leaders = [
-  ['MANAGING PARTNER', 'David Mwangi, CPA-K', 'Managing Partner & Statutory Lead', 'ICPAK Practicing Member #4892', 'Over 16 years leading corporate audits, tax restructuring and national revenue appeals across East Africa.', 'Corporate & Tax Practice'],
-  ['PARTNER', 'Dr. Rosemary Kamau', 'Partner, NGO & Donor Fiduciary', 'Ph.D. Dev. Finance / CPA-K', 'Specialist in grant compliance, consortium monitoring and fiduciary standards for USAID, EU and Global Fund operations.', 'Grant Assurance'],
-  ['TAX DIRECTOR', 'Sarah Ochieng, CPA', 'Senior Tax Director & KRA Disputes', 'KRA Registered Tax Agent', 'Directs dispute resolution with deep mastery of transfer pricing, customs valuation and corporate excise duties.', 'Tribunal & KRA Practice'],
-  ['TECH LEAD', 'Brian Kiprono', 'Head of Accounting Tech & eTIMS', 'ERP & API Integration Lead', 'Specializes in ERP-to-eTIMS middleware, automated VAT reconciliations and digital workflow migrations.', 'eTIMS Systems'],
-  ['ACCOUNTING TEAM LEAD', 'CPA JACOB KIOKO', 'Team lead -Accounting', 'CPA', 'Leads the accounting team, supporting clear and accurate financial reporting.', 'Accounting', jacobKiokoImage],
-  ['LEADERSHIP TEAM', 'CPA Nicholas Muasa, Msc', '', 'CPA · MSc', 'Brings his accounting expertise and professional qualifications to the firm’s leadership and client work.', 'Leadership Team', nicholasMuasaImage, true],
-]
+import ImagePlaceholder from '../components/ui/ImagePlaceholder'
+import PageMetadata from '../components/layout/PageMetadata'
+import { services } from '../data/services'
+import { siteConfig } from '../data/siteConfig'
 
 function About() {
+  const activeStats = siteConfig.stats.filter((s) => s.value !== null)
+  const leaders = siteConfig.leaders ?? []
+  const accreditations = siteConfig.accreditations ?? []
+  const guarantees = siteConfig.guarantees ?? []
+
   return (
     <div className="about-page">
       <Navbar active="About Us" />
+      <PageMetadata
+        title="About | Nexus Trio Consulting"
+        description="Learn about Nexus Trio Consulting and its accounting, tax, payroll, registration and business advisory services for clients worldwide."
+      />
 
-      <main>
+      <main id="main-content">
         <section className="about-hero">
           <div className="container">
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>About Us</b></nav>
             <div className="about-hero-grid">
               <div>
-                <h1>Connecting Insights, Opportunities, &amp; <span>Sustainable Growth</span> in East Africa</h1>
-                <p>Nexus Trio Consulting Ltd is a distinguished Kenyan financial stewardship and statutory advisory firm. Headquartered in Nairobi, we bridge institutional governance, eTIMS compliance and international grant management to foster uncompromised integrity and long-term enterprise resilience.</p>
+                <h1>About <span>Nexus Trio Consulting</span></h1>
+                <p>Nexus Trio Consulting provides accounting, tax, payroll, registration and business advisory services for NGOs, SMEs, startups and business owners worldwide.</p>
               </div>
-              <blockquote><span>Our Mandate</span><p>&ldquo;To engineer clear pathways through East Africa&apos;s complex regulatory and fiscal matrix with precision, ethics, and strategic foresight.&rdquo;</p></blockquote>
+              <blockquote><span>Our approach</span><p>We start by understanding your needs, then agree on the support and next steps.</p></blockquote>
             </div>
-            <div className="about-metrics">
-              <div><strong>10+</strong><span>Years of Excellence</span></div>
-              <div><strong>100%</strong><span>KRA Compliance Track</span></div>
-              <div><strong>KSh 1.2B+</strong><span>Donor Funds Supervised</span></div>
-              <div><strong>350+</strong><span>Entities Advised</span></div>
-            </div>
+            {activeStats.length > 0 && (
+              <div className="about-metrics">
+                {activeStats.map((stat) => (
+                  <div key={stat.id}>
+                    <strong>{stat.prefix}{stat.value}{stat.suffix}</strong>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
         <section className="philosophy-section">
-          <div className="container philosophy-grid">
+          <div className={`container philosophy-grid ${!siteConfig.firmDetails ? 'philosophy-grid--full' : ''}`}>
             <div className="philosophy-copy">
-              <span>Our Heritage &amp; Identity</span>
-              <h2>The Architecture Behind the <b>&ldquo;Trio&rdquo;</b> Philosophy</h2>
-              <p>Founded on the belief that sustainable commercial and social enterprise requires more than basic bookkeeping, <strong>Nexus Trio Consulting Ltd</strong> was architected as the convergence point of three indispensable institutional pillars.</p>
+              <span>Our services</span>
+              <h2>Support across six <span className="philosophy-highlight">service areas</span></h2>
+              <p>Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide.</p>
               <div className="pillar-list">
-                {pillars.map(([number, title, text]) => (
-                  <article key={title}><div>{number}</div><div><h3>{title}</h3><p>{text}</p></div></article>
+                {services.map((service, index) => (
+                  <article key={service.slug}>
+                    <div>{String(index + 1).padStart(2, '0')}</div>
+                    <div>
+                      <h3>{service.title}</h3>
+                      <p>{service.summary}</p>
+                    </div>
+                  </article>
                 ))}
               </div>
             </div>
-            <aside className="three-pillars">
-              <div className="pillar-emblem">▥</div>
-              <h3>The Three Pillars</h3>
-              <span>Connecting Value, Legality &amp; Scale</span>
-              <div className="pillar-rows">
-                <div><p>Regulatory Oversight</p><b>Tax &amp; Legal</b></div>
-                <div><p>Financial Strategy</p><b>Scale &amp; Capital</b></div>
-                <div><p>Donor &amp; NGO Fiduciary</p><b>Audits &amp; Grants</b></div>
+            {siteConfig.firmDetails && (
+              <aside className="three-pillars">
+                <div className="pillar-emblem">N</div>
+                <h3>Firm details</h3>
+                {siteConfig.firmDetails.background && <span>{siteConfig.firmDetails.background}</span>}
+                <div className="pillar-rows">
+                  {siteConfig.firmDetails.registration && <div><p>Registration details</p><b>{siteConfig.firmDetails.registration}</b></div>}
+                  {siteConfig.firmDetails.delivery && <div><p>Service delivery details</p><b>{siteConfig.firmDetails.delivery}</b></div>}
+                </div>
+                {siteConfig.firmDetails.mission && <blockquote>{siteConfig.firmDetails.mission}</blockquote>}
+              </aside>
+            )}
+          </div>
+        </section>
+
+        {guarantees.length > 0 && (
+          <section className="guarantees-section">
+            <div className="container">
+              <div className="about-section-heading"><span>Why choose us</span><h2>What makes Nexus Trio the right fit?</h2></div>
+              <div className="guarantees-grid">
+                {guarantees.map((item) => <article key={item.title}><div>{item.number}</div><h3>{item.title}</h3><p>{item.text}</p></article>)}
               </div>
-              <blockquote>&ldquo;Our mission is to establish East Africa&apos;s highest benchmark for financial governance and client fidelity.&rdquo;<b>Nexus Trio Executive Committee</b></blockquote>
-            </aside>
-          </div>
-        </section>
-
-        <section className="guarantees-section">
-          <div className="container">
-            <div className="about-section-heading"><span>Our Operating Charter</span><h2>Core Institutional Guarantees</h2><p>Every partner, analyst and associate operates under a standardized fiduciary and confidentiality covenant.</p></div>
-            <div className="guarantees-grid">
-              {guarantees.map(([icon, title, text]) => <article key={title}><div>{icon}</div><h3>{title}</h3><p>{text}</p></article>)}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="leadership-section">
-          <div className="container">
-            <div className="leadership-heading"><div><span>Our Stewards</span><h2>Leadership &amp; Senior Partners</h2></div><p>Led by accredited Certified Public Accountants with experience across Big Four firms, revenue authorities and global non-profits.</p></div>
-            <div className="leader-grid">
-              {leaders.map(([role, name, title, credential, text, practice, image, containImage]) => (
-                <article className="leader-card" key={name}>
-                  <div className="leader-portrait">{image ? <img className={`leader-image${containImage ? ' leader-image--contain' : ''}`} src={image} alt={name} /> : <div>♟</div>}{role && <span>{role}</span>}</div>
-                  <div className="leader-info"><h3>{name}</h3>{title && <b>{title}</b>}{credential && <em>{credential}</em>}{text && <p>{text}</p>}</div>
-                  <div className="leader-footer"><span>{practice}</span><a href="#linkedin" aria-label={`${name} LinkedIn`}>in</a></div>
-                </article>
-              ))}
+        {leaders.length > 0 && (
+          <section className="leadership-section">
+            <div className="container">
+              <div className="leadership-heading"><div><span>Our team</span><h2>Meet the team</h2></div></div>
+              <div className="leader-grid">
+                {leaders.map((leader) => (
+                  <article className="leader-card" key={leader.name}>
+                    <div className="leader-portrait">
+                      {leader.image ? (
+                        <img className={`leader-image${leader.containImage ? ' leader-image--contain' : ''}`} src={leader.image} alt={leader.name} />
+                      ) : (
+                        <ImagePlaceholder label="Team portrait" searchTerms="professional portrait of a Nexus Trio team member" aspectRatio="4 / 3" altText={`Portrait of ${leader.name}`} className="image-placeholder--portrait" />
+                      )}
+                      {leader.role && <span>{leader.role}</span>}
+                    </div>
+                    <div className="leader-info">
+                      <h3>{leader.name}</h3>
+                      {leader.title && <b>{leader.title}</b>}
+                      {leader.credential && <em>{leader.credential}</em>}
+                      {leader.bio && <p>{leader.bio}</p>}
+                    </div>
+                    {leader.practice && <div className="leader-footer"><span>{leader.practice}</span></div>}
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="accreditations-section">
-          <div className="container">
-            <p>Accredited and regulated in accordance with Kenyan &amp; global standards</p>
-            <div className="accreditation-grid">
-              <div><b>▥</b><strong>ICPAK Kenya</strong><span>Practicing Member Firm</span></div>
-              <div><b>◆</b><strong>KRA Tax Agent</strong><span>Licensed Advisory Agent</span></div>
-              <div><b>▤</b><strong>BRS Kenya</strong><span>Corporate Compliance Certified</span></div>
-              <div><b>$</b><strong>USAID &amp; Global Fund</strong><span>Fiduciary Standards Compliant</span></div>
+        {accreditations.length > 0 && (
+          <section className="accreditations-section">
+            <div className="container">
+              <div className="accreditation-grid">
+                {accreditations.map((item, index) => (
+                  <div key={item.id}><b>{String(index + 1).padStart(2, '0')}</b><strong>{item.number}</strong><span>{item.label}</span></div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="cta-section" id="contact">
           <CtaRay />
-          <div className="container cta-copy"><span>Speak With Our Partners</span><h2>Need Guidance With Tax Compliance or Donor Grant Reporting?</h2><p>Whether you are navigating a KRA inquiry, transitioning to eTIMS or managing donor audits, our senior team is ready to evaluate your position under full NDA.</p><div><a className="gold-button" href="#/consultation">▣ Book a Free Consultation</a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
+          <div className="container cta-copy"><span>Speak with our team</span><h2>Would you like to discuss your support needs?</h2><p>Book a consultation or email our team.</p><div><a className="gold-button" href="#/consultation">Book a consultation</a><a className="phone-button" href={`mailto:${siteConfig.company.email}`}>Email us</a></div></div>
         </section>
       </main>
     </div>

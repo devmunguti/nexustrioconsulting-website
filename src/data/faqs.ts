@@ -109,7 +109,7 @@ export const faqs: FaqEntry[] = [
   },
   {
     id: 'corporate-registration-support',
-    question: 'What business registration support can you provide?',
+    question: 'How do I register my company?',
     answer: 'Support can include helping coordinate the information and documents needed for a registration process, along with related business setup administration. The required steps depend on the entity and should be confirmed before submission.',
     // TODO: confirm with Pillar
     category: 'Getting started',
@@ -253,7 +253,7 @@ export const faqs: FaqEntry[] = [
   },
   {
     id: 'tax-kra-query',
-    question: 'What should we do if we receive a query from KRA?',
+    question: 'I’m struggling with KRA. What should I do?',
     answer: 'Keep the notice and related records together, note any response instructions, and seek advice before replying if the matter is unclear. We can review the documents and discuss support for the response.',
     // TODO: confirm with Pillar
     category: 'Tax and compliance',

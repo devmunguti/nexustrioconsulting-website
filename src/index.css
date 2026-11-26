@@ -7,6 +7,8 @@
   --gold: #d7ad30;
   --gold-hover: #c19924;
   --gold-text: #705400;
+  --focus-ring: #123b62;
+  --focus-ring-dark: #d7ad30;
   --footer-text: #f2f5f7;
   --footer-muted: #bdc9d2;
   --footer-divider: rgba(255,255,255,.1);
@@ -26,6 +28,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; }
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }

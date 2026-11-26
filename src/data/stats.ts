@@ -1,6 +1,8 @@
+import { siteConfig } from './siteConfig'
+
 export interface StatEntry {
   id: string
-  value: number
+  value: number | null
   prefix?: string
   suffix?: string
   label: string
@@ -8,26 +10,5 @@ export interface StatEntry {
   decimals?: number
 }
 
-export const stats: StatEntry[] = [
-  {
-    id: 'years',
-    value: 2,
-    label: 'Years of experience',
-  },
-  {
-    id: 'clients',
-    value: 4,
-    prefix: '+',
-    label: 'Clients served',
-  },
-  {
-    id: 'ngos',
-    value: 2,
-    label: 'NGOs supported',
-  },
-  {
-    id: 'returns',
-    value: 10,
-    label: 'Returns filed',
-  },
-]
+export const stats: StatEntry[] = siteConfig.stats
+

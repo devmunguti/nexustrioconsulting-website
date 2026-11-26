@@ -1,4 +1,5 @@
 import { services } from './services.js'
+import { siteConfig } from './siteConfig.js'
 
 export type FooterLink = {
   label: string
@@ -9,7 +10,6 @@ export type FooterSocial = {
   label: string
   platform: 'linkedin' | 'x' | 'facebook' | 'whatsapp'
   href: string | null
-  todo?: string
 }
 
 type FooterData = {
@@ -40,7 +40,7 @@ type FooterData = {
   services: FooterLink[]
   contact: {
     email: { label: string; href: string }
-    phone: { label: string; href: string }
+    phone: { label: string; href: string } | null
     address: string
     hours: string
   }
@@ -48,19 +48,14 @@ type FooterData = {
   legalLinks: Array<{
     label: string
     href: string | null
-    todo?: string
   }>
-  unavailableLinks: Array<{
-    label: string
-    todo: string
-  }>
-  registrationNumberTodo: string
+  registrationNumber: string | null
 }
 
 export const footerData: FooterData = {
   companyName: 'Nexus Trio Consulting Ltd',
   logoAlt: 'Nexus Trio Consulting Ltd',
-  description: 'Financial, tax, payroll, and donor-compliance support for organisations across Kenya.',
+  description: 'Accounting, tax, payroll, project finance and business advisory for clients worldwide.',
   columnHeadings: {
     company: 'Company',
     services: 'Services',
@@ -79,7 +74,7 @@ export const footerData: FooterData = {
   cta: {
     heading: 'Ready for financial clarity?',
     label: 'Book a consultation',
-    href: '#/contact#contact-main',
+    href: '#/consultation',
   },
   companyLinks: [
     { label: 'About', href: '#/about' },
@@ -94,28 +89,24 @@ export const footerData: FooterData = {
   })),
   contact: {
     email: {
-      label: 'info@nexustrio.co.ke',
-      href: 'mailto:info@nexustrio.co.ke',
+      label: siteConfig.company.email,
+      href: `mailto:${siteConfig.company.email}`,
     },
-    phone: {
-      label: '+254 700 000 000',
-      href: 'tel:+254700000000',
-    },
-    address: 'Valley View Office Park, Westlands, Nairobi',
-    hours: 'Monday–Friday, 8:00 AM–5:00 PM EAT',
+    phone: siteConfig.company.phone
+      ? { label: siteConfig.company.phone.display, href: siteConfig.company.phone.href }
+      : null,
+    address: siteConfig.company.address?.physical ?? '',
+    hours: siteConfig.company.workingHours ?? '',
   },
   socials: [
-    { label: 'LinkedIn', platform: 'linkedin', href: null, todo: 'TODO: Add the official LinkedIn URL.' },
-    { label: 'X', platform: 'x', href: null, todo: 'TODO: Add the official X URL.' },
-    { label: 'Facebook', platform: 'facebook', href: null, todo: 'TODO: Add the official Facebook URL.' },
-    { label: 'WhatsApp', platform: 'whatsapp', href: 'https://wa.me/254700000000' },
+    { label: 'LinkedIn', platform: 'linkedin', href: siteConfig.socials.linkedin },
+    { label: 'X', platform: 'x', href: siteConfig.socials.x },
+    { label: 'Facebook', platform: 'facebook', href: siteConfig.socials.facebook },
+    { label: 'WhatsApp', platform: 'whatsapp', href: siteConfig.company.whatsapp?.href ?? null },
   ],
   legalLinks: [
-    { label: 'Privacy Policy', href: null, todo: 'TODO: Add the verified Privacy Policy route or URL.' },
-    { label: 'Terms', href: null, todo: 'TODO: Add the verified Terms route or URL.' },
+    { label: 'Privacy Policy', href: siteConfig.legal.privacyPolicyHref },
+    { label: 'Terms', href: siteConfig.legal.termsHref },
   ],
-  unavailableLinks: [
-    { label: 'Blog', todo: 'TODO: Add a Blog link after a real blog route or URL is available.' },
-  ],
-  registrationNumberTodo: 'TODO: Add a verified company registration number if it should appear in the footer.',
+  registrationNumber: siteConfig.company.registrationNumber,
 }

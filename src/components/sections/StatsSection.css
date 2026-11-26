@@ -48,6 +48,12 @@
   line-height: 1;
 }
 
+.stats-card__placeholder {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .stats-card__number::after {
   position: absolute;
   bottom: -11px;

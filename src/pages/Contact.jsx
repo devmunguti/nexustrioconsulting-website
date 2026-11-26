@@ -1,16 +1,23 @@
-import { useState } from 'react'
 import PageShell from '../components/layout/PageShell'
+import PageMetadata from '../components/layout/PageMetadata'
+import { useInquiryForm } from '../hooks/useInquiryForm'
+import { siteConfig } from '../data/siteConfig'
 
 function Contact() {
-  const [submitted, setSubmitted] = useState(false)
+  const { status, error, message, handleSubmit } = useInquiryForm()
+  const hasPhoneOrWhatsapp = Boolean(siteConfig.company.phone || siteConfig.company.whatsapp)
 
   return (
     <PageShell active="Contact" hideHero>
+      <PageMetadata
+        title="Contact | Nexus Trio Consulting"
+        description="Contact Nexus Trio Consulting to discuss accounting, tax, payroll, registration, project finance or business advisory support."
+      />
       <section className="contact-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Contact Us</b></nav>
-          <h1>Connect with Our Financial &amp; Statutory Advisors in Nairobi</h1>
-          <p>Schedule confidential advisory sessions, arrange comprehensive KRA tax health checks, or initiate donor audit preparations with certified Kenyan specialists.</p>
+          <h1>Get in touch with Nexus Trio</h1>
+          <p>Contact us about accounting, tax, payroll, business registration, project finance or business advisory support. We work with clients worldwide.</p>
         </div>
       </section>
 
@@ -18,56 +25,174 @@ function Contact() {
         <div className="container contact-main-grid">
           <aside className="contact-office-column">
             <div className="contact-intro">
-              <span>Nairobi Advisory Office</span>
-              <h2>Get in Touch Directly</h2>
-              <p>Our resident partners and tax agents maintain active consultations for corporate entities, international NGOs, and high-growth institutions across East Africa.</p>
+              <span>Contact our team</span>
+              <h2>Tell us what support you need</h2>
+              <p>Email us to discuss your organisation, business or question. We will confirm what information is useful for your enquiry.</p>
             </div>
 
             <article className="emergency-card">
               <div>⚠</div>
               <div>
-                <h3>Emergency KRA Notice &amp; Audit Hotline</h3>
-                <p>Received an urgent demand notice, agency appointment or tax audit directive from KRA? Our statutory team provides a guaranteed 2-hour response.</p>
-                <a href="tel:+254711000000">☎ +254 711 000 000 <span>(Urgent Hotline)</span></a>
+                <h3>Received a notice from KRA?</h3>
+                <p>Keep the notice and note its response date. If you are unsure what it means, email us to discuss your situation.</p>
+                <a href={`mailto:${siteConfig.company.email}`}>Email our team</a>
               </div>
             </article>
 
             <div className="office-detail-list">
-              <article><div>▥</div><section><h3>Office Headquarters</h3><p><b>Commercial Hub, Upper Hill &amp; Westlands Corridor</b><small>P.O. Box 48210 - 00100 GPO, Nairobi, Kenya</small></p></section></article>
-              <article><div>☎</div><section><h3>Direct Telephony</h3><p><span>Advisory Desk:</span> <a href="tel:+254700000000">+254 700 000 000</a><br /><span>Office Switchboard:</span> <a href="tel:+254202000000">+254 (0)20 200 0000</a></p></section></article>
-              <article><div>✉</div><section><h3>Departmental Inboxes</h3><div className="department-links"><a href="mailto:tax@nexustrio.co.ke"><b>Tax Advisory:</b><span>tax@nexustrio.co.ke</span></a><a href="mailto:grants@nexustrio.co.ke"><b>Donor Grants &amp; NGO:</b><span>grants@nexustrio.co.ke</span></a><a href="mailto:info@nexustrio.co.ke"><b>General Matters:</b><span>info@nexustrio.co.ke</span></a></div></section></article>
-              <article><div>◷</div><section><h3>Working Hours</h3><p><b>Monday - Friday: 8:00 AM - 5:00 PM EAT</b><small>Saturday: 9:00 AM - 1:00 PM EAT (By appointment)</small><small>Sunday &amp; public holidays: Closed</small></p></section></article>
+              {siteConfig.company.address && (
+                <article>
+                  <div>▥</div>
+                  <section>
+                    <h3>Business location</h3>
+                    <p>
+                      {siteConfig.company.address.physical && <b>{siteConfig.company.address.physical}</b>}
+                      {siteConfig.company.address.postal && <span>{siteConfig.company.address.postal}</span>}
+                    </p>
+                  </section>
+                </article>
+              )}
+              {hasPhoneOrWhatsapp && (
+                <article>
+                  <div>☎</div>
+                  <section>
+                    <h3>Phone and WhatsApp</h3>
+                    <p>
+                      {siteConfig.company.phone && (
+                        <span><a href={siteConfig.company.phone.href}>{siteConfig.company.phone.display}</a></span>
+                      )}
+                      {siteConfig.company.phone && siteConfig.company.whatsapp && <br />}
+                      {siteConfig.company.whatsapp && (
+                        <span><a href={siteConfig.company.whatsapp.href}>WhatsApp: {siteConfig.company.whatsapp.display}</a></span>
+                      )}
+                    </p>
+                  </section>
+                </article>
+              )}
+              <article>
+                <div>✉</div>
+                <section>
+                  <h3>Email</h3>
+                  <div className="department-links">
+                    <a href={`mailto:${siteConfig.company.email}`}>
+                      <b>General enquiries:</b>
+                      <span>{siteConfig.company.email}</span>
+                    </a>
+                  </div>
+                </section>
+              </article>
+              {siteConfig.company.workingHours && (
+                <article>
+                  <div>◷</div>
+                  <section>
+                    <h3>Working hours</h3>
+                    <p><b>{siteConfig.company.workingHours}</b></p>
+                  </section>
+                </article>
+              )}
             </div>
 
-            <div className="map-preview">
-              <div><span>◉ Upper Hill Financial District, Nairobi</span><small>GPS: -1.2985, 36.8188</small></div>
-              <div className="map-graphic">
-                <div>●</div>
-                <h3>Nexus Trio Consulting Ltd</h3>
-                <p>Hospital Road, Upper Hill, Nairobi</p>
-                <a href="https://maps.google.com/?q=Upper+Hill+Nairobi" target="_blank" rel="noreferrer">Open in Google Maps →</a>
-              </div>
-            </div>
+            <div className="map-preview"><p>We work with clients worldwide. Contact us by email to discuss your location and requirements.</p></div>
           </aside>
 
           <div className="inquiry-card" id="inquiry-form">
-            <div className="inquiry-heading"><span>Confidential Advisory Request</span><h2>Send Us an Inquiry</h2><p>♙ All submissions are handled under strict NDA by certified tax &amp; fiduciary professionals.</p></div>
-            {submitted ? (
-              <div className="form-success">Thank you. Your inquiry has been routed to our Nairobi advisory team.</div>
+            <div className="inquiry-heading"><span>Contact form</span><h2>Send us an inquiry</h2><p>Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p></div>
+            {status === 'success' ? (
+              <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div>
             ) : (
-              <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
+              <form onSubmit={(event) => handleSubmit(event, { type: 'contact' })}>
+                {error && <p className="form-error" id="contact-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
                 <div className="contact-form-row">
-                  <label>Full Name *<input required name="fullName" placeholder="e.g. David Mwangi" /></label>
-                  <label>Organization / Company Name *<input required name="organization" placeholder="e.g. Apex Health Africa NGO" /></label>
+                  <label htmlFor="contact-fullName">Full Name <span aria-hidden="true">*</span></label>
+                  <input
+                    id="contact-fullName"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'contact-error' : undefined}
+                    name="fullName"
+                    placeholder="Your name"
+                  />
+                  <label htmlFor="contact-organization">Organization / Company Name <span aria-hidden="true">*</span></label>
+                  <input
+                    id="contact-organization"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'contact-error' : undefined}
+                    name="organization"
+                    placeholder="Your organisation or business"
+                  />
                 </div>
                 <div className="contact-form-row">
-                  <label>Business Email Address *<input required type="email" name="email" placeholder="david@company.co.ke" /></label>
-                  <label>Phone Number *<div className="phone-field"><span>🇰🇪 +254</span><input required name="phone" placeholder="700 000 000" /></div></label>
+                  <label htmlFor="contact-email">Business Email Address <span aria-hidden="true">*</span></label>
+                  <input
+                    id="contact-email"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'contact-error' : undefined}
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                  />
+                  <label htmlFor="contact-phone">Phone Number (optional; include country code)</label>
+                  <input
+                    id="contact-phone"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'contact-error' : undefined}
+                    name="phone"
+                    placeholder="+country code and number"
+                  />
                 </div>
-                <label>Primary Area of Interest *<select required defaultValue=""><option value="" disabled>Select an advisory service...</option><option>KRA Tax Advisory &amp; eTIMS</option><option>NGO Fiduciary &amp; Donor Audit</option><option>Payroll &amp; Statutory Levies</option><option>Corporate Structuring &amp; Registration</option><option>Bookkeeping &amp; Financial Reporting</option><option>Urgent KRA Audit Defense</option></select></label>
-                <label>Context &amp; Specific Requirements *<textarea required name="message" rows="6" placeholder="Briefly outline your organization's statutory situation, audit timeline or current tax needs..." /></label>
-                <label className="consent"><input required type="checkbox" /><span>I consent to Nexus Trio Consulting processing this inquiry under the Kenya Data Protection Act, 2019 and professional confidentiality mandates.</span></label>
-                <div className="inquiry-submit"><button type="submit" className="gold-button">Submit Inquiry →</button><span>Typical response time: under 3 business hours.</span></div>
+                <label htmlFor="contact-service">Primary Area of Interest <span aria-hidden="true">*</span></label>
+                <select
+                  id="contact-service"
+                  required
+                  aria-required="true"
+                  aria-invalid={Boolean(error)}
+                  aria-describedby={error ? 'contact-error' : undefined}
+                  name="service"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select an advisory service...</option>
+                  <option>NGO and Project Financial Management</option>
+                  <option>Business Registration and Corporate Services</option>
+                  <option>Payroll and HR Administration</option>
+                  <option>Business Advisory and Consultancy</option>
+                  <option>Accounting and Financial Management</option>
+                  <option>Tax Advisory and Compliance</option>
+                </select>
+                <label htmlFor="contact-message">Context &amp; Specific Requirements <span aria-hidden="true">*</span></label>
+                <textarea
+                  id="contact-message"
+                  required
+                  aria-required="true"
+                  aria-invalid={Boolean(error)}
+                  aria-describedby={error ? 'contact-error' : undefined}
+                  name="message"
+                  rows={6}
+                  placeholder="Briefly outline your organization's statutory situation, audit timeline or current tax needs..."
+                />
+                <label className="form-consent" htmlFor="contact-consent">
+                  <input
+                    id="contact-consent"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'contact-error' : undefined}
+                    type="checkbox"
+                    name="consent"
+                    value="true"
+                  />
+                  <span>I agree that Nexus Trio can use these details to respond to my enquiry.</span>
+                </label>
+                <div className="inquiry-submit">
+                  <button type="submit" className="gold-button" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'Sending…' : 'Send enquiry'}
+                  </button>
+                  <span>Your details are sent by email.</span>
+                </div>
               </form>
             )}
           </div>
@@ -77,14 +202,14 @@ function Contact() {
       <section className="regional-advisory">
         <div className="container">
           <div className="regional-card">
-            <div className="regional-copy"><span>◉ Cross-Border East Africa Advisory</span><h2>Regional Fiduciary Capabilities: Kenya, Uganda, Tanzania &amp; Rwanda</h2><p>Operating multi-country entities or international non-profits in the East African Community? Nexus Trio provides synchronized statutory compliance across dual-currency ledgers, cross-border withholding tax reconciliation and transfer-pricing reviews aligned with regional customs conventions.</p><div><b>✓ Multi-Currency Reporting</b><b>✓ EAC Cross-Border WHT</b><b>✓ Consolidated Donor Audits</b></div></div>
-            <aside><span>Regional Coordination Desk</span><h3>Cross-Border Engagements</h3><p>Speak with a senior partner regarding regional expansion or dual registrations.</p><a href="mailto:regional@nexustrio.co.ke">✉ Email Regional Desk</a></aside>
+            <div className="regional-copy"><span>Worldwide service</span><h2>Business support for clients around the world</h2><p>Tell us where your organisation operates and what support you are looking for. We can discuss whether the services listed on this website fit your needs.</p><div><b>Accounting</b><b>Tax</b><b>Business advisory</b></div></div>
+            <aside><span>Contact</span><h3>Start a conversation</h3><p>Send your enquiry to our public contact email.</p><a href="mailto:info@nexustrioconsultancy.co.ke">✉ Email Nexus Trio</a></aside>
           </div>
         </div>
       </section>
 
       <section className="contact-cta">
-        <div className="container"><h2>Need Immediate Statutory Guidance?</h2><p>Whether you need audit intervention, eTIMS configuration or an external review of your donor-funded books, our team is at your disposal.</p><div><a className="gold-button" href="#/consultation">Book a Free Consultation</a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
+        <div className="container"><h2>Would you like to discuss your needs?</h2><p>Book a consultation or email us directly.</p><div><a className="gold-button" href="#/consultation">Book a consultation</a><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email Nexus Trio</a></div></div>
       </section>
     </PageShell>
   )

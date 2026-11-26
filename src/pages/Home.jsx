@@ -2,72 +2,78 @@ import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
 import StatsSection from '../components/sections/StatsSection'
-import heroImage from '../assets/reference-1.jpg'
-import nicholasMuasaImage from '../assets/nicholas-muasa.jpeg'
-import jacobKiokoImage from '../assets/jacob-kioko.jpeg'
-import ngoImage from '../assets/reference-5.jpg'
-import smeImage from '../assets/reference-6.jpg'
-import corporateImage from '../assets/reference-7.jpg'
-import strategyImage from '../assets/reference-8.jpg'
-import financeImage from '../assets/reference-9.jpg'
+import TestimonialSection from '../components/sections/TestimonialSection'
+import PageMetadata from '../components/layout/PageMetadata'
+import ImagePlaceholder from '../components/ui/ImagePlaceholder'
+import { Calculator, FileCheck2, HandCoins, Lightbulb, ReceiptText, Users } from 'lucide-react'
+import jacobPortrait from '../assets/jacob-kioko.jpeg'
+import nicholasPortrait from '../assets/nicholas-muasa.jpeg'
+import companyLogo from '../assets/nexus-trio-logo-landscape.png'
+import { useInquiryForm } from '../hooks/useInquiryForm'
+import { services as servicesData } from '../data/services'
+import { siteConfig } from '../data/siteConfig'
 
 const services = [
-  ['$', 'NGO & Project Financial Management', 'Specialized grant accounting, donor-compliance monitoring, procurement reviews and external audit readiness.'],
-  ['%', 'Tax Advisory & Compliance', 'Proactive tax planning, KRA VAT returns, eTIMS integration, withholding tax compliance and audit representation.'],
-  ['#', 'Payroll & HR Administration', 'Accurate PAYE, SHIF, NSSF and Housing Levy computations, payslips and statutory filing.'],
-  ['=', 'Accounting & Financial Management', 'Complete bookkeeping, management accounts, cash flow management and bank reconciliations.'],
-  ['P', 'Business Registration & Corporate Services', 'Company incorporation, KRA PIN generation, business permits and secretarial compliance.'],
-  ['↗', 'Business Advisory & Consultancy', 'Growth planning, financial modelling, capital structuring and institutional capacity development.'],
+  [HandCoins, 'ngo-project-financial-management', 'Making every donor shilling count'],
+  [FileCheck2, 'business-registration-corporate-services', 'Start legally. Stay compliant.'],
+  [Users, 'payroll-hr-administration', 'Pay your people right, on time, every time'],
+  [Lightbulb, 'business-advisory-consultancy', 'Smart decisions for growing businesses'],
+  [Calculator, 'accounting-financial-management', 'Know your numbers. Run your business with confidence.'],
+  [ReceiptText, 'tax-advisory-compliance', 'Pay what you owe, not a shilling more'],
 ]
 
 const audiences = [
-  ['Civil Society', ngoImage, 'NGOs and Donor-Funded Projects', 'Transparent grant accounting, sub-grantee monitoring, donor procurement compliance and audit trails.', 'Explore NGO Solutions'],
-  ['Growth Ventures', smeImage, 'SMEs and Fast-Growing Startups', 'Scalable outsourced bookkeeping, monthly payroll, eTIMS registration and statutory foundations.', 'Explore SME Packages'],
-  ['Enterprises', corporateImage, 'Corporates and High-Net-Worth', 'Advanced corporate tax structuring, statutory risk mitigation and dedicated secretarial services.', 'Explore Advisory'],
+  ['NGOs', 'NGOs and community projects', 'Financial and project support shaped around your organisation’s needs.', 'Explore Services'],
+  ['SMEs', 'Small and medium-sized businesses', 'Practical support with the day-to-day numbers and obligations of running a business.', 'Explore Services'],
+  ['Startups', 'Startups and founders', 'Support as you set up, organise records and plan your next steps.', 'Explore Services'],
 ]
 
 const faqs = [
-  ['Which KRA filings and taxes do you handle?', 'We handle Value Added Tax (VAT), Pay As You Earn (PAYE), Withholding Tax, Corporate Income Tax, eTIMS validation and annual KRA company returns.'],
-  ['Can you prepare donor financial reports for international grants?', 'Yes. We prepare budget variance analyses, expenditure tracking and audit files compliant with major donor and foundation requirements.'],
-  ['How do you structure your service pricing?', 'We offer monthly retainers, project-based pricing and fully outsourced finance management packages tailored to transaction volumes.'],
-  ['Do you assist with new company incorporation in Kenya?', 'Yes. We manage name reservations, BRS incorporation, KRA PIN generation, bank account support and county permits.'],
-  ['What accounting software do you support?', 'We work with QuickBooks Online, Xero, Sage Pastel, Zoho Books and Microsoft Dynamics.'],
+  ['How do I register my company?', 'The steps depend on the type of business and its owners. Contact us to discuss the setup support you need and the documents to prepare.'],
+  ['I’m struggling with KRA. What should I do?', 'Keep any KRA notice and note its response date. If you are unsure what it means, contact us so we can discuss the next steps for your situation.'],
+  ['Do you work with NGOs and donor-funded projects?', 'NGO and project financial management is one of our service areas. Contact us to discuss the records and reporting your project needs.'],
+  ['Can you help a new business get started?', 'Business registration and corporate services are among our service areas. The right next steps depend on your business structure and needs.'],
 ]
 
 function Home() {
   const [openFaq, setOpenFaq] = useState(0)
-  const [submitted, setSubmitted] = useState(false)
+  const { status, error, message, handleSubmit } = useInquiryForm()
 
   return (
     <div className="home-page">
       <Navbar active="Home" />
+      <PageMetadata
+        title="Nexus Trio Consulting | Accounting, Tax and Business Support"
+        description="Accounting, tax, payroll, NGO project financial management, registration and business advisory support for organisations and business owners worldwide."
+      />
 
-      <main>
+      <main id="main-content">
         <section className="hero-section" id="home">
           <div className="container hero-card">
             <div className="hero-copy">
               <p className="eyebrow">Kenya Regulatory &amp; Statutory Specialists</p>
               <h1>Financial clarity for <span>NGOs and growing</span> businesses</h1>
-              <p className="hero-lead">Accounting, tax, payroll and donor-compliance support for organisations across Kenya. Ensuring seamless KRA eTIMS adherence and rigorous donor reporting.</p>
+              <p className="hero-lead">Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide.</p>
               <div className="hero-actions">
                 <a className="gold-button" href="#/consultation">Book a Consultation <span>→</span></a>
-                <a className="outline-button" href="#services">View Services</a>
+                <a className="outline-button" href="#/#services">View Services</a>
               </div>
             </div>
             <div className="hero-image">
-              <img src={heroImage} alt="Nexus Trio financial advisory team" />
-              <div className="image-badge">
-                <span className="badge-icon">✓</span>
-                <div><strong>100% Tax &amp; Grant Compliance</strong><small>KRA, eTIMS, SHIF, NSSF and donor requirements verified.</small></div>
-              </div>
+              <ImagePlaceholder
+                label="African business team"
+                searchTerms="African business team discussing financial plans"
+                aspectRatio="16 / 9"
+                altText="A diverse African business team reviewing financial plans together"
+              />
             </div>
           </div>
         </section>
 
         <section className="trust-strip">
-          <p>Trusted compliance partner for NGOs, SMEs and corporates across East Africa</p>
+          <p>Support for NGOs, SMEs, startups and business owners worldwide</p>
           <div className="container trust-items">
-            <span>◉ East Africa NGO Forum</span><span>♧ Kenya Agri-Dev Fund</span><span>⌘ Nairobi Tech Hub</span><span>▰ Rift Logistics PLC</span><span>▥ Horizon Group East</span>
+            <span>NGOs</span><span>SMEs</span><span>Startups</span><span>Business owners</span>
           </div>
         </section>
 
@@ -75,18 +81,20 @@ function Home() {
 
         <section className="section intro-section" id="about">
           <div className="container">
-            <div className="section-heading"><h2>Expertise that keeps you <span>compliant and growing</span></h2><i /></div>
+            <div className="section-heading"><h2>Clear support for <span>your business needs</span></h2><i /></div>
             <div className="intro-grid">
               <div className="intro-copy">
-                <h3>Navigating Kenyan regulatory complexities with unwavering precision</h3>
-                <p>At Nexus Trio Consulting Ltd, we bridge the gap between strategic vision and day-to-day statutory requirements. From eTIMS transitions to complex multi-donor sub-awards, our practitioners safeguard your organization&apos;s legal standing.</p>
-                <p>Whether you are an international NGO, a rising tech venture or an established enterprise, we deliver clarity, accountability and measurable peace of mind.</p>
-                <div className="intro-actions"><a className="gold-button" href="#services">About Our Firm</a><span>✓ <b>ICPAK Affiliated Experts</b></span></div>
+                <h3>Financial and business support, explained clearly</h3>
+                <p>Nexus Trio Consulting supports NGOs, SMEs, startups and business owners with accounting, tax, payroll, registration and advisory services.</p>
+                <p>We work with clients worldwide. Tell us what you are trying to do, and we can discuss the support that fits.</p>
+                <div className="intro-actions"><a className="gold-button" href="#/about">About Our Firm</a></div>
               </div>
               <div className="arch-gallery">
-                <div className="arch arch-one"><img src={nicholasMuasaImage} alt="CPA Nicholas Muasa" /></div>
-                <div className="arch arch-two"><img src={jacobKiokoImage} alt="CPA Jacob Kioko" /></div>
-                <div className="experience-badge"><strong>10+</strong><span>YEARS OF <b>EXCELLENCE</b></span></div>
+                <div className="arch arch-one"><img src={jacobPortrait} alt="Portrait of Jacob Kioko" width="1232" height="1277" loading="lazy" decoding="async" /></div>
+                <div className="arch arch-two"><img src={nicholasPortrait} alt="Portrait of Nicholas Muasa" width="1103" height="1426" loading="lazy" decoding="async" /></div>
+                <div className="brand-logo-badge">
+                  <img src={companyLogo} alt="Nexus Trio Consulting Ltd logo" width="750" height="220" loading="lazy" decoding="async" />
+                </div>
               </div>
             </div>
           </div>
@@ -96,15 +104,21 @@ function Home() {
           <div className="container">
             <div className="services-panel">
               <div className="panel-heading">
-                <div><span className="eyebrow">What We Offer</span><h2>Our Core Services</h2><p>Comprehensive statutory, accounting and advisory solutions for the East African institutional and commercial ecosystem.</p></div>
+                <div><span className="eyebrow">What we offer</span><h2>Our service areas</h2><p>Explore our core service areas for organisations and business owners.</p></div>
                 <div className="carousel-arrows"><button type="button" aria-label="Previous services">←</button><button type="button" aria-label="Next services">→</button></div>
               </div>
               <div className="services-grid">
-                {services.map(([icon, title, text]) => (
-                  <article className="service-card" key={title}>
-                    <div className="service-icon">{icon}</div><h3>{title}</h3><p>{text}</p><a href="#contact">Learn More <span>→</span></a>
-                  </article>
-                ))}
+                {services.map(([Icon, slug, title]) => {
+                  const serviceInfo = servicesData.find((s) => s.slug === slug)
+                  return (
+                    <a className="service-card" href={`#/services/${slug}`} key={slug}>
+                      <div className="service-icon"><Icon aria-hidden="true" size={22} strokeWidth={1.8} /></div>
+                      <h3>{title}</h3>
+                      {serviceInfo?.summary && <p>{serviceInfo.summary}</p>}
+                      <span className="service-card__link">View service <span aria-hidden="true">→</span></span>
+                    </a>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -112,54 +126,43 @@ function Home() {
 
         <section className="section audience-section" id="who-we-serve">
           <div className="container">
-            <div className="section-heading"><span className="eyebrow">Tailored Competence</span><h2>Who We Serve</h2><p>Customized accounting frameworks designed for the unique obligations of your industry.</p></div>
+            <div className="section-heading"><span className="eyebrow">Who we help</span><h2>NGOs, SMEs and startups</h2><p>We also support individual business owners around the world.</p></div>
             <div className="audience-grid">
-              {audiences.map(([tag, image, title, text, link]) => (
+              {audiences.map(([tag, title, text, link]) => (
                 <article className="audience-card" key={title}>
-                  <div className="audience-image"><img src={image} alt={title} /><span>{tag}</span></div>
-                  <div className="audience-copy"><h3>{title}</h3><p>{text}</p><a href="#contact">{link} <span>→</span></a></div>
+                  <div className="audience-image"><ImagePlaceholder label={tag} searchTerms={`${tag} team reviewing a project budget`} aspectRatio="16 / 9" altText={`${tag} reviewing their financial records`} /><span>{tag}</span></div>
+                  <div className="audience-copy"><h3>{title}</h3><p>{text}</p><a href="#/#contact">{link} <span>→</span></a></div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="testimonial-section" id="testimonials">
-          <div className="container testimonial-card">
-            <div className="testimonial-author">
-              <span className="eyebrow">Client Validation</span><h3>Partnering with Proven Leaders</h3>
-              <div className="author-profile"><div className="initials">DR</div><div><strong>Dr. Rosemary K.</strong><small>Country Director</small><em>Regional Health Initiative NGO, Nairobi</em></div></div>
-              <div className="testimonial-arrows"><button type="button" aria-label="Previous testimonial">‹</button><button type="button" aria-label="Next testimonial">›</button></div>
-            </div>
-            <blockquote><span>“</span><p>&ldquo;Nexus Trio Consulting streamlined our entire donor reporting pipeline and resolved our historical KRA audit queries with total professionalism. Their team gives us complete confidence in our financial governance.&rdquo;</p><div className="stars">★★★★★ <small>5.0 Star Audit Compliance Rating</small></div></blockquote>
-          </div>
-        </section>
+        <TestimonialSection />
 
-        <section className="section advantage-section" id="why-us">
-          <div className="container">
-            <div className="section-heading"><span className="eyebrow">The Nexus Advantage</span><h2>Why clients choose Nexus Trio</h2><p>Combining deep institutional donor know-how with agile commercial accounting practice.</p></div>
-            <div className="bento-grid">
-              <article className="bento visual"><img src={strategyImage} alt="Consultants collaborating on financial models" /><div><span>Our Philosophy</span><h3>Safeguarding donor capital &amp; corporate growth</h3></div></article>
-              <article className="bento light"><div className="bento-icon">◎</div><div><h3>Donor Compliance</h3><p>Proven mastery of USAID, Global Fund and European grant procedures.</p></div><small>✓ Zero-disallowance target</small></article>
-              <article className="bento navy"><div><span>Tax Track Record</span><b>◷</b></div><div><strong>99.8%</strong><p>On-time filing across KRA VAT, PAYE and SHIF returns.</p></div><small>ZERO LATE PENALTIES</small></article>
-              <article className="bento light"><div className="bento-icon gold">✓</div><div><strong>100%</strong><h3>KRA Statutory Focus</h3><p>Active eTIMS compliance verification for every expenditure line.</p></div></article>
-              <article className="bento light"><div className="bento-icon">≡</div><div><h3>Tailored Systems</h3><p>Workflows customized to QuickBooks, Xero or Sage.</p></div><small>Seamless Migration</small></article>
-              <article className="bento wide"><div><span>Dedicated Attention</span><h3>Direct Senior Consultant Access</h3><p>Every client is paired with an accredited senior accountant—no junior runaround.</p></div><a className="gold-button" href="#contact">Get Matched Today</a></article>
+        {siteConfig.advantages && siteConfig.advantages.length > 0 && (
+          <section className="section advantage-section" id="why-us">
+            <div className="container">
+              <div className="section-heading"><span className="eyebrow">Why choose us</span><h2>Reasons to work with Nexus Trio</h2></div>
+              <div className="bento-grid">
+                {siteConfig.advantages.map((adv) => (
+                  <article className={`bento ${adv.type}`} key={adv.title}>
+                    <div><h3>{adv.title}</h3><p>{adv.text}</p></div>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="section scope-section">
           <div className="container scope-grid">
             <div className="scope-copy">
               <span className="eyebrow">End-to-End Capabilities</span><h2>Everything your finances need in one place</h2>
               <p>We function as your complete outsourced finance department or provide targeted statutory intervention to resolve bottlenecks and audit queries.</p>
-              <div className="checklist">
-                {['Donor budget preparation & variance analysis', 'KRA PIN registration & statutory setup', 'PAYE, SHIF, NSSF & statutory payroll', 'Financial modelling & cash flow forecasts', 'Monthly bank & ledger reconciliations', 'VAT & eTIMS onboarding & monthly filing', 'Business plans & bankability studies', 'Audit preparation & external liaison support'].map((item) => <div key={item}><span>✓</span>{item}</div>)}
-              </div>
-              <a className="gold-button" href="#contact">Get Started <span>→</span></a>
+              <a className="gold-button" href="#/#contact">Get Started <span>→</span></a>
             </div>
-            <div className="scope-image"><img src={financeImage} alt="Financial advisor reviewing KRA tax schedules" /><div><strong>Fast Turnaround Guaranteed</strong><span>Clean books delivered every month with zero backlog.</span></div></div>
+            <div className="scope-image"><ImagePlaceholder label="Accounting and financial management" searchTerms="laptop, spreadsheet and calculator on a desk" aspectRatio="4 / 3" altText="Laptop displaying a spreadsheet beside a calculator" /><div><strong>Accounting and financial management</strong><span>Dedicated advisory and statutory compliance.</span></div></div>
           </div>
         </section>
 
@@ -177,14 +180,89 @@ function Home() {
               </div>
             </div>
             <div className="contact-card" id="contact">
-              <span className="eyebrow">Fast Callback</span><h3>Book a Free Consultation</h3><p>Let&apos;s discuss your statutory needs or donor compliance roadmap.</p>
-              {submitted ? <div className="form-success">Thank you. A senior consultant will contact you within 24 hours.</div> : (
-                <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
-                  <label>Full Name<input required name="name" placeholder="e.g. Samuel Mwangi" /></label>
-                  <div className="form-row"><label>Phone Number<input required name="phone" placeholder="+254 700 000 000" /></label><label>Email Address<input required type="email" name="email" placeholder="smwangi@domain.co.ke" /></label></div>
-                  <label>Service Required<select name="service"><option>NGO &amp; Donor Grant Management</option><option>KRA Tax Compliance &amp; eTIMS</option><option>Payroll &amp; Statutory</option><option>Bookkeeping &amp; Financial Accounts</option><option>Business Registration &amp; Corporate</option><option>Strategic Financial Advisory</option></select></label>
-                  <label>Message / Key Requirements<textarea name="message" rows="3" placeholder="Tell us briefly about your organisation or query..." /></label>
-                  <button className="gold-button" type="submit">Send Consultation Request</button><small className="privacy">♙ Your information is held in strict professional confidentiality.</small>
+              <span className="eyebrow">Fast Callback</span><h2>Book a consultation</h2><p>Let&apos;s discuss your statutory needs or donor compliance roadmap.</p>
+              {status === 'success' ? <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div> : (
+                <form onSubmit={(event) => handleSubmit(event, { type: 'homepage' })}>
+                  <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p>
+                  {error && <p className="form-error" id="home-form-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
+                  <label htmlFor="home-name">Full Name <span aria-hidden="true">*</span></label>
+                  <input
+                    id="home-name"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'home-form-error' : undefined}
+                    name="name"
+                    placeholder="Your name"
+                  />
+                  <div className="form-row">
+                    <div>
+                      <label htmlFor="home-phone">Phone Number (include country code) <span aria-hidden="true">*</span></label>
+                      <input
+                        id="home-phone"
+                        required
+                        aria-required="true"
+                        aria-invalid={Boolean(error)}
+                        aria-describedby={error ? 'home-form-error' : undefined}
+                        name="phone"
+                        placeholder="+country code and number"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="home-email">Email Address <span aria-hidden="true">*</span></label>
+                      <input
+                        id="home-email"
+                        required
+                        aria-required="true"
+                        aria-invalid={Boolean(error)}
+                        aria-describedby={error ? 'home-form-error' : undefined}
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="home-service">Service Required <span aria-hidden="true">*</span></label>
+                  <select
+                    id="home-service"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'home-form-error' : undefined}
+                    name="service"
+                  >
+                    <option>NGO and Project Financial Management</option>
+                    <option>Business Registration and Corporate Services</option>
+                    <option>Payroll and HR Administration</option>
+                    <option>Business Advisory and Consultancy</option>
+                    <option>Accounting and Financial Management</option>
+                    <option>Tax Advisory and Compliance</option>
+                  </select>
+                  <label htmlFor="home-message">Message / Key Requirements</label>
+                  <textarea
+                    id="home-message"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'home-form-error' : undefined}
+                    name="message"
+                    rows={3}
+                    placeholder="Tell us briefly about your organisation or query..."
+                  />
+                  <label className="form-consent" htmlFor="home-consent">
+                    <input
+                      id="home-consent"
+                      required
+                      aria-required="true"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? 'home-form-error' : undefined}
+                      type="checkbox"
+                      name="consent"
+                      value="true"
+                    />
+                    <span>I agree that Nexus Trio can use these details to respond to my enquiry.</span>
+                  </label>
+                  <button className="gold-button" type="submit" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'Sending…' : 'Send enquiry'}
+                  </button>
                 </form>
               )}
             </div>
@@ -193,7 +271,7 @@ function Home() {
 
         <section className="cta-section">
           <CtaRay />
-          <div className="container cta-copy"><span>Ready for Complete Peace of Mind?</span><h2>Need help with tax compliance or <b>donor reporting?</b></h2><p>Speak with a certified consultant today and safeguard your financial integrity with tailored, rigorous oversight.</p><div><a className="gold-button" href="#contact">Book a Free Consultation <b>▣</b></a><a className="phone-button" href="tel:+254700000000">☎ Call +254 700 000 000</a></div></div>
+          <div className="container cta-copy"><span>Let’s talk about your needs</span><h2>Looking for accounting, tax or business support?</h2><p>Book a consultation or email us to start a conversation.</p><div><a className="gold-button" href="#/consultation">Book a consultation</a><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email us</a></div></div>
         </section>
       </main>
     </div>

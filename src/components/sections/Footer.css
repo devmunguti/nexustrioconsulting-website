@@ -23,6 +23,12 @@
   font-size: clamp(24px, 3vw, 36px);
 }
 
+.snapshot-footer__whatsapp-placeholder {
+  margin-top: 8px;
+  color: var(--footer-muted);
+  font-size: 12px;
+}
+
 .snapshot-footer__button {
   min-height: 48px;
   display: inline-flex;

@@ -3,6 +3,7 @@ import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
 import FaqAccordion from '../components/sections/FaqAccordion'
 import FaqPageJsonLd from '../components/sections/FaqPageJsonLd'
+import Glossary from '../components/sections/Glossary'
 import { faqs, faqContactDetails } from '../data/faqs'
 import './FAQ.css'
 
@@ -97,12 +98,14 @@ function FAQ() {
               subtitle="Choose a question to read more."
             />
           ) : (
-            <div className="faq-page-empty">
+            <div className="faq-page-empty" role="status" aria-live="polite">
               <p>No results found. Try another keyword or <a href="#/contact#contact-main">contact us</a>.</p>
             </div>
           )}
         </div>
       </section>
+
+      <Glossary />
 
       <section className="faq-page-cta">
         <div className="container faq-page-cta__inner">
@@ -112,7 +115,9 @@ function FAQ() {
           </div>
           <div className="faq-page-cta__actions">
             <a className="gold-button" href="#/consultation">Book a consultation</a>
-            <a href={faqContactDetails.phone.href}>{faqContactDetails.phone.label}</a>
+            {faqContactDetails.phone.href
+              ? <a href={faqContactDetails.phone.href}>{faqContactDetails.phone.label}</a>
+              : <span>{faqContactDetails.phone.label}</span>}
             <a href={faqContactDetails.email.href}>{faqContactDetails.email.label}</a>
           </div>
         </div>

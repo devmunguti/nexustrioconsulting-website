@@ -1,26 +1,24 @@
 import { useState } from 'react'
 import PageShell from '../components/layout/PageShell'
+import PageMetadata from '../components/layout/PageMetadata'
+import { useInquiryForm } from '../hooks/useInquiryForm'
+import { services } from '../data/services'
+import { siteConfig } from '../data/siteConfig'
 
-const focusOptions = [
-  ['Tax Advisory & eTIMS Health Check', 'KRA audits, tax clearance certificates and VAT dispute resolution.', '1'],
-  ['NGO Donor Grant Oversight', 'Fund accounting, USAID/EU donor audit readiness and compliance.', '2'],
-  ['Monthly Accounting & Payroll Retainer', 'Outsourced ledger management, PAYE, SHIF and Housing Levy.', '3'],
-  ['New Business & Foreign Entity Setup', 'BRS incorporation, licensing, bank setup and KRA PIN registration.', '4'],
-]
+const focusOptions = services.map((service, index) => [
+  service.title,
+  service.headline,
+  String(index + 1),
+])
 
-const dates = [
-  ['Tomorrow', 'Thu, 24 Oct'],
-  ['Available', 'Fri, 25 Oct'],
-  ['Available', 'Mon, 28 Oct'],
-  ['Available', 'Tue, 29 Oct'],
-]
+const dates = [['Arrange by email', 'Contact us']]
 
-const times = ['09:30 AM EAT', '11:00 AM EAT', '02:00 PM EAT', '04:00 PM EAT']
+const times = ['Arrange by email']
 
 const faqs = [
-  ['Is the complimentary 45-minute consultation truly free of financial obligation?', 'Yes. The session is exploratory. We review your compliance posture, potential KRA exposures and operational bottlenecks. A fee quotation is provided only if you choose to engage ongoing advisory or audit support.'],
-  ['Can the session take place virtually or at our Nairobi office?', 'Both options are available through Microsoft Teams or Google Meet, or at our Nairobi office. On-site visits can be arranged for qualified organizations with complex accounting systems.'],
-  ['What specific documents should we prepare for the call?', 'Not mandatory, but useful documents include your latest Tax Compliance Certificate, trial balance and prior-year audited financial statements.'],
+  ['Is the consultation free?', 'The website offers a free consultation. Please confirm the format, timing and any follow-up scope with the team.'],
+  ['Can we meet online?', 'Please email us to confirm the available meeting format and arrange a suitable time.'],
+  ['What should I prepare?', 'A short description of your organisation or business and the support you are looking for is a useful starting point. Do not send sensitive documents until a secure sharing method has been agreed.'],
 ]
 
 function Consultation() {
@@ -28,46 +26,86 @@ function Consultation() {
   const [date, setDate] = useState(dates[0][1])
   const [time, setTime] = useState(times[0])
   const [openFaq, setOpenFaq] = useState(0)
-  const [submitted, setSubmitted] = useState(false)
+  const { status, error, message, handleSubmit } = useInquiryForm()
+  const leaders = siteConfig.leaders ?? []
+
+  const handleFocusKeyDown = (event, currentIndex) => {
+    let nextIndex = currentIndex
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+      event.preventDefault()
+      nextIndex = (currentIndex + 1) % focusOptions.length
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+      event.preventDefault()
+      nextIndex = (currentIndex - 1 + focusOptions.length) % focusOptions.length
+    } else {
+      return
+    }
+    setFocus(focusOptions[nextIndex][0])
+    const nextButton = document.getElementById(`focus-opt-${nextIndex}`)
+    nextButton?.focus()
+  }
 
   return (
     <PageShell active="Consultation" hideHero>
+      <PageMetadata
+        title="Book a consultation | Nexus Trio Consulting"
+        description="Arrange a conversation with Nexus Trio Consulting about accounting, tax, payroll, business registration or advisory support."
+      />
       <section className="consult-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Book a Consultation</b></nav>
-          <h1>Schedule Your Complimentary Executive Consultation</h1>
-          <p>Reserve a 45-minute confidential statutory diagnostic or grant fiduciary roadmap session with our ICPAK-accredited consultants and licensed KRA tax agents.</p>
-          <div className="consult-assurances"><span>♙ Strict Mutual NDA</span><span>◷ Fast 2-Hour Confirmation</span><span>♟ Direct Senior Partner Session</span></div>
+          <h1>Book a consultation</h1>
+          <p>Use the contact email to discuss your needs and arrange a suitable time with the team.</p>
+          <div className="consult-assurances"><span>Free consultation</span><span>Time to be agreed</span><span>Share documents only after agreeing a secure method</span></div>
         </div>
       </section>
 
       <section className="consultation-main">
         <div className="container consultation-grid">
           <aside className="consult-expect">
-            <div className="expect-heading"><span>Advisory Process</span><h2>What to Expect in Your Session</h2><p>Our initial discovery session is a structured, zero-obligation technical review tailored to your organization.</p></div>
+            <div className="expect-heading"><span>What to expect</span><h2>How it works</h2><p>Discuss your needs first, then agree on any information or next steps.</p></div>
             <div className="expect-steps">
-              <article><span>01</span><div><h3>Preliminary Statutory &amp; eTIMS Check</h3><p>Analysis of KRA compliance, electronic invoicing and active ledger liabilities.</p></div></article>
-              <article><span>02</span><div><h3>Statutory Deadline &amp; Penalty Exposure</h3><p>Risk review for PAYE, VAT, SHIF and Housing Levy reconciliations.</p></div></article>
-              <article><span>03</span><div><h3>Actionable Roadmap &amp; Retainer SLA</h3><p>A prioritized checklist and exact scope with guaranteed turnaround SLAs.</p></div></article>
+              <article><span>01</span><div><h3>Consultation</h3><p>Tell us what support you are looking for.</p></div></article>
+              <article><span>02</span><div><h3>Documents</h3><p>Agree what information is needed and how to share it.</p></div></article>
+              <article><span>03</span><div><h3>Done</h3><p>We complete the work included in the agreed scope.</p></div></article>
             </div>
-            <div className="advisor-spotlight"><h3>Available Senior Advisors</h3>
-              <article><div className="advisor-avatar navy">DM</div><div><strong>David Mwangi, CPA-K</strong><span>Corporate Tax &amp; eTIMS Specialist</span></div><b>● Open</b></article>
-              <article><div className="advisor-avatar gold">RK</div><div><strong>Dr. Rosemary Kamau</strong><span>NGO Grant &amp; Fiduciary Lead</span></div><b>● Open</b></article>
-            </div>
-            <div className="consult-confidential"><span>♙</span><p><strong>100% Confidentiality Assured:</strong> All shared financial documentation is protected under formal mutual NDA regulations.</p></div>
+            {leaders.length > 0 && (
+              <div className="advisor-spotlight">
+                <h3>Our team</h3>
+                <p>{leaders.map((l) => l.name).join(', ')}</p>
+              </div>
+            )}
+            <div className="consult-confidential"><span>ℹ</span><p><strong>Before sharing documents:</strong> Please contact us first to agree on a suitable way to share information.</p></div>
           </aside>
 
           <div className="booking-card">
-            {submitted ? (
-              <div className="booking-success"><span>✓</span><h2>Consultation Request Confirmed</h2><p>Our advisory team will send a confirmation and meeting invitation within 2 business hours.</p></div>
+            {status === 'success' ? (
+              <div className="booking-success"><span aria-hidden="true">✓</span><h2>Request sent</h2><p>{message} The team will confirm a suitable time with you by email.</p></div>
             ) : (
-              <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
+              <form onSubmit={(event) => handleSubmit(event, { type: 'consultation', service: focus, preferredDate: date, preferredTime: time })}>
+                <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. The team will use it to arrange a consultation. Do not include passwords or confidential financial documents.</p>
+                {error && <p className="form-error" id="consult-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
+                <input type="hidden" name="service" value={focus} />
                 <section className="booking-step">
-                  <div className="booking-step-heading"><div><span>1</span><h2>Select Advisory Focus</h2></div><small>Required</small></div>
-                  <div className="focus-grid">
-                    {focusOptions.map(([title, text]) => (
-                      <button type="button" className={focus === title ? 'focus-option active' : 'focus-option'} onClick={() => setFocus(title)} key={title}>
-                        <i>{focus === title ? '●' : '○'}</i><span><strong>{title}</strong><small>{text}</small></span>
+                  <div className="booking-step-heading">
+                    <div><span>1</span><h2 id="focus-heading">Select Advisory Focus</h2></div>
+                    <small>Required</small>
+                  </div>
+                  <div className="focus-grid" role="radiogroup" aria-labelledby="focus-heading">
+                    {focusOptions.map(([title, text], index) => (
+                      <button
+                        type="button"
+                        id={`focus-opt-${index}`}
+                        role="radio"
+                        aria-checked={focus === title}
+                        tabIndex={focus === title ? 0 : -1}
+                        className={focus === title ? 'focus-option active' : 'focus-option'}
+                        onClick={() => setFocus(title)}
+                        onKeyDown={(e) => handleFocusKeyDown(e, index)}
+                        key={title}
+                      >
+                        <i aria-hidden="true">{focus === title ? '●' : '○'}</i>
+                        <span><strong>{title}</strong><small>{text}</small></span>
                       </button>
                     ))}
                   </div>
@@ -76,28 +114,127 @@ function Consultation() {
                 <section className="booking-step">
                   <div className="booking-step-heading"><div><span>2</span><h2>Organization &amp; Executive Details</h2></div><small>Step 2 of 3</small></div>
                   <div className="booking-form-grid">
-                    <label>Full Name *<input required name="name" placeholder="e.g. John Ochieng" /></label>
-                    <label>Company / Organization Name *<input required name="company" placeholder="e.g. Acme Africa Ltd" /></label>
-                    <label>Official Work Email *<input required type="email" name="email" placeholder="john@company.co.ke" /></label>
-                    <label>Direct Phone Number *<input required name="phone" placeholder="+254 7XX XXX XXX" /></label>
-                    <label className="booking-full">Estimated Annual Turnover or Grant Portfolio<select name="turnover" defaultValue=""><option value="" disabled>Select bracket...</option><option>Below KES 10 Million</option><option>KES 10 Million - KES 50 Million</option><option>KES 50 Million - KES 250 Million</option><option>KES 250 Million+</option><option>Prefer to discuss during meeting</option></select></label>
+                    <label htmlFor="consult-name">Full Name <span aria-hidden="true">*</span></label>
+                    <input
+                      id="consult-name"
+                      required
+                      aria-required="true"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? 'consult-error' : undefined}
+                      name="name"
+                      placeholder="Your name"
+                    />
+                    <label htmlFor="consult-company">Company / Organization Name <span aria-hidden="true">*</span></label>
+                    <input
+                      id="consult-company"
+                      required
+                      aria-required="true"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? 'consult-error' : undefined}
+                      name="company"
+                      placeholder="Your organisation or business"
+                    />
+                    <label htmlFor="consult-email">Official Work Email <span aria-hidden="true">*</span></label>
+                    <input
+                      id="consult-email"
+                      required
+                      aria-required="true"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? 'consult-error' : undefined}
+                      type="email"
+                      name="email"
+                      placeholder="you@example.com"
+                    />
+                    <label htmlFor="consult-phone">Phone Number (include country code) <span aria-hidden="true">*</span></label>
+                    <input
+                      id="consult-phone"
+                      required
+                      aria-required="true"
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? 'consult-error' : undefined}
+                      name="phone"
+                      placeholder="+country code and number"
+                    />
+                    <label className="booking-full" htmlFor="consult-turnover">
+                      Estimated Annual Turnover or Grant Portfolio
+                      <select
+                        id="consult-turnover"
+                        aria-invalid={Boolean(error)}
+                        aria-describedby={error ? 'consult-error' : undefined}
+                        name="turnover"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Select bracket...</option>
+                        <option>Below KES 10 Million</option>
+                        <option>KES 10 Million - KES 50 Million</option>
+                        <option>KES 50 Million - KES 250 Million</option>
+                        <option>KES 250 Million+</option>
+                        <option>Prefer to discuss during meeting</option>
+                      </select>
+                    </label>
                   </div>
                 </section>
 
                 <section className="booking-step">
-                  <div className="booking-step-heading"><div><span>3</span><h2>Preferred Date &amp; Session Slot (EAT)</h2></div><small>45 Minutes</small></div>
-                  <label className="calendar-label">Select Date</label>
-                  <div className="date-grid">
-                    {dates.map(([label, value]) => <button type="button" className={date === value ? 'date-pill active' : 'date-pill'} onClick={() => setDate(value)} key={value}><small>{label}</small><strong>{value}</strong></button>)}
+                  <div className="booking-step-heading"><div><span>3</span><h2>Arrange a suitable time</h2></div><small>By email</small></div>
+                  <span id="date-label" className="calendar-label">Select Date</span>
+                  <div className="date-grid" role="group" aria-labelledby="date-label">
+                    {dates.map(([label, value]) => (
+                      <button
+                        type="button"
+                        aria-pressed={date === value}
+                        className={date === value ? 'date-pill active' : 'date-pill'}
+                        onClick={() => setDate(value)}
+                        key={value}
+                      >
+                        <small>{label}</small><strong>{value}</strong>
+                      </button>
+                    ))}
                   </div>
-                  <label className="calendar-label">Select Time Window (East Africa Time)</label>
-                  <div className="time-grid">
-                    {times.map((value) => <button type="button" className={time === value ? 'time-pill active' : 'time-pill'} onClick={() => setTime(value)} key={value}>{value}</button>)}
+                  <span id="time-label" className="calendar-label">Preferred time</span>
+                  <div className="time-grid" role="group" aria-labelledby="time-label">
+                    {times.map((value) => (
+                      <button
+                        type="button"
+                        aria-pressed={time === value}
+                        className={time === value ? 'time-pill active' : 'time-pill'}
+                        onClick={() => setTime(value)}
+                        key={value}
+                      >
+                        {value}
+                      </button>
+                    ))}
                   </div>
-                  <label className="booking-notes">Key Questions or Primary Statutory Concern (Optional)<textarea name="notes" rows="3" placeholder="Briefly describe your statutory status, upcoming audit or requirements..." /></label>
+                  <label className="booking-notes" htmlFor="consult-notes">Key Questions or Primary Statutory Concern (Optional)</label>
+                  <textarea
+                    id="consult-notes"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'consult-error' : undefined}
+                    name="notes"
+                    rows={3}
+                    placeholder="Briefly describe your statutory status, upcoming audit or requirements..."
+                  />
                 </section>
 
-                <div className="booking-submit"><p>◷ Confirmation &amp; Google Meet/office invite sent within <strong>2 business hours</strong>.</p><button type="submit" className="gold-button">Confirm Consultation Request →</button></div>
+                <label className="form-consent" htmlFor="consult-consent">
+                  <input
+                    id="consult-consent"
+                    required
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'consult-error' : undefined}
+                    type="checkbox"
+                    name="consent"
+                    value="true"
+                  />
+                  <span>I agree that Nexus Trio can use these details to respond to my enquiry.</span>
+                </label>
+                <div className="booking-submit">
+                  <p>Your information will be sent by email. The team will confirm the appointment time.</p>
+                  <button type="submit" className="gold-button" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'Sending…' : 'Send consultation request →'}
+                  </button>
+                </div>
               </form>
             )}
           </div>
@@ -106,7 +243,7 @@ function Consultation() {
 
       <section className="consult-faq">
         <div className="container consult-faq-inner">
-          <div className="consult-faq-heading"><span>Client Assurance</span><h2>Frequently Asked Questions Prior to Booking</h2><p>Transparent advisory standards for Kenyan corporations, SMEs and international NGOs.</p></div>
+          <div className="consult-faq-heading"><span>Before you book</span><h2>Frequently asked questions</h2><p>Frequently asked questions about booking an advisory consultation.</p></div>
           <div className="consult-faq-list">
             {faqs.map(([question, answer], index) => (
               <article className={openFaq === index ? 'open' : ''} key={question}>

@@ -1,0 +1,75 @@
+.image-placeholder {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 32px);
+  background:
+    radial-gradient(circle at 85% 15%, rgba(215, 173, 48, .18), transparent 34%),
+    linear-gradient(135deg, #123b62, #0a233c);
+  color: #fff;
+}
+
+.image-placeholder__badge {
+  display: inline-flex;
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.image-placeholder strong {
+  max-width: 34ch;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.image-placeholder > span:not(.image-placeholder__badge),
+.image-placeholder small {
+  max-width: 48ch;
+  color: #e0e8ef;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.image-placeholder small {
+  opacity: .85;
+}
+
+.image-placeholder--portrait {
+  align-items: center;
+  padding: 14px;
+  text-align: center;
+}
+
+.image-placeholder--portrait strong {
+  font-size: 14px;
+}
+
+.image-placeholder--portrait > span:not(.image-placeholder__badge),
+.image-placeholder--portrait small {
+  font-size: 10px;
+}
+
+.image-placeholder--cover {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  padding: 22px;
+}
+
+.scope-image > .image-placeholder {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  min-height: 0;
+}

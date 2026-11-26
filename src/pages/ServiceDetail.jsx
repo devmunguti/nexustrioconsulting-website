@@ -2,6 +2,7 @@ import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
 import FaqAccordion from '../components/sections/FaqAccordion'
 import FaqPageJsonLd from '../components/sections/FaqPageJsonLd'
+import Glossary from '../components/sections/Glossary'
 import { services } from '../data/services'
 import { faqs } from '../data/faqs'
 
@@ -10,15 +11,29 @@ function ServiceDetail() {
   const slug = routePath.split('/').pop()
   const service = services.find((item) => item.slug === slug)
   const serviceFaqs = service ? faqs.filter((faq) => faq.serviceSlugs?.includes(service.slug)) : []
-  const description = service?.summary || 'Tailored financial and statutory advisory support.'
+  const description = service?.summary || 'Professional advisory and compliance services from Nexus Trio Consulting.'
 
   return (
-    <PageShell active="Services" eyebrow="Services" title={service?.title || 'Service'} lead={description}>
+    <PageShell active="Services" eyebrow="Services" title={service?.headline || 'Service'} lead={description}>
       <PageMetadata
-        title={`${service?.title || 'Service'} | Nexus Trio Consulting`}
+        title={`${service?.headline || 'Service'} | Nexus Trio Consulting`}
         description={description}
       />
-      <section className="inner-content"><div className="container service-detail-card"><h2>How we support you</h2><ul>{(service?.bullets || ['Initial diagnostic', 'Tailored delivery plan', 'Ongoing review and assurance']).map((item) => <li key={item}>✓ {item}</li>)}</ul><a className="gold-button" href="#/contact">Request a Consultation</a></div></section>
+      <section className="inner-content">
+        <div className="container service-detail-card">
+          <h2>{service ? service.title : 'Service details'}</h2>
+          {service?.summary && <p className="service-lead">{service.summary}</p>}
+          {service?.bullets && (
+            <ul className="service-bullets">
+              {service.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          )}
+          <a className="gold-button" href="#/consultation">Book a consultation</a>
+        </div>
+      </section>
+      <Glossary />
       {serviceFaqs.length > 0 && (
         <>
           <FaqPageJsonLd items={serviceFaqs} />

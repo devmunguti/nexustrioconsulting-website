@@ -89,7 +89,7 @@ function LogoNavPreloader() {
       <motion.img
         className="logo-nav-preloader__logo"
         src={logo}
-        alt="Pillar"
+        alt="Nexus Trio Consulting"
         width={750}
         height={504}
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
