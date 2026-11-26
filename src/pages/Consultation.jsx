@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
+import Button from '../components/ui/Button'
+import SectionHeading from '../components/ui/SectionHeading'
 import { useInquiryForm } from '../hooks/useInquiryForm'
 import { services } from '../data/services'
 import { siteConfig } from '../data/siteConfig'
@@ -63,7 +65,12 @@ function Consultation() {
       <section className="consultation-main">
         <div className="container consultation-grid">
           <aside className="consult-expect">
-            <div className="expect-heading"><span>What to expect</span><h2>How it works</h2><p>Discuss your needs first, then agree on any information or next steps.</p></div>
+            <SectionHeading
+              className="expect-heading"
+              eyebrow="What to expect"
+              title="How it works"
+              description="Discuss your needs first, then agree on any information or next steps."
+            />
             <div className="expect-steps">
               <article><span>01</span><div><h3>Consultation</h3><p>Tell us what support you are looking for.</p></div></article>
               <article><span>02</span><div><h3>Documents</h3><p>Agree what information is needed and how to share it.</p></div></article>
@@ -85,13 +92,20 @@ function Consultation() {
               <form onSubmit={(event) => handleSubmit(event, { type: 'consultation', service: focus, preferredDate: date, preferredTime: time })}>
                 <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. The team will use it to arrange a consultation. Do not include passwords or confidential financial documents.</p>
                 {error && <p className="form-error" id="consult-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
-                <input type="hidden" name="service" value={focus} />
+                <input id="consult-service-value" type="hidden" name="service" value={focus} />
                 <section className="booking-step">
                   <div className="booking-step-heading">
                     <div><span>1</span><h2 id="focus-heading">Select Advisory Focus</h2></div>
                     <small>Required</small>
                   </div>
-                  <div className="focus-grid" role="radiogroup" aria-labelledby="focus-heading">
+                  <div
+                    className="focus-grid"
+                    role="radiogroup"
+                    aria-labelledby="focus-heading"
+                    aria-required="true"
+                    aria-invalid={Boolean(error)}
+                    aria-describedby={error ? 'consult-error' : undefined}
+                  >
                     {focusOptions.map(([title, text], index) => (
                       <button
                         type="button"
@@ -231,9 +245,9 @@ function Consultation() {
                 </label>
                 <div className="booking-submit">
                   <p>Your information will be sent by email. The team will confirm the appointment time.</p>
-                  <button type="submit" className="gold-button" disabled={status === 'sending'}>
+                  <Button type="submit" disabled={status === 'sending'}>
                     {status === 'sending' ? 'Sending…' : 'Send consultation request →'}
-                  </button>
+                  </Button>
                 </div>
               </form>
             )}
@@ -243,7 +257,12 @@ function Consultation() {
 
       <section className="consult-faq">
         <div className="container consult-faq-inner">
-          <div className="consult-faq-heading"><span>Before you book</span><h2>Frequently asked questions</h2><p>Frequently asked questions about booking an advisory consultation.</p></div>
+          <SectionHeading
+            className="consult-faq-heading"
+            eyebrow="Before you book"
+            title="Frequently asked questions"
+            description="Frequently asked questions about booking an advisory consultation."
+          />
           <div className="consult-faq-list">
             {faqs.map(([question, answer], index) => (
               <article className={openFaq === index ? 'open' : ''} key={question}>

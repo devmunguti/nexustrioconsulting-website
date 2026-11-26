@@ -4,6 +4,10 @@
   color: var(--footer-text);
 }
 
+.snapshot-footer--has-whatsapp {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+
 .snapshot-footer__container {
   width: min(1280px, calc(100% - 64px));
   margin: 0 auto;
@@ -206,6 +210,11 @@
   font-size: 11px;
 }
 
+.snapshot-footer__credit {
+  margin: 0;
+  color: var(--footer-muted);
+}
+
 .snapshot-footer__legal {
   display: flex;
   flex-wrap: wrap;
@@ -290,5 +299,9 @@
 
   .snapshot-footer__socials a:hover {
     transform: none;
+  }
+
+  .snapshot-footer__link:hover::after {
+    transform: scaleX(0);
   }
 }

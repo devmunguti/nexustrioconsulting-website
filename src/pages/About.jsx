@@ -1,6 +1,7 @@
 import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
 import ImagePlaceholder from '../components/ui/ImagePlaceholder'
+import SectionHeading from '../components/ui/SectionHeading'
 import PageMetadata from '../components/layout/PageMetadata'
 import { services } from '../data/services'
 import { siteConfig } from '../data/siteConfig'
@@ -19,7 +20,7 @@ function About() {
         description="Learn about Nexus Trio Consulting and its accounting, tax, payroll, registration and business advisory services for clients worldwide."
       />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex="-1">
         <section className="about-hero">
           <div className="container">
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>About Us</b></nav>
@@ -46,9 +47,12 @@ function About() {
         <section className="philosophy-section">
           <div className={`container philosophy-grid ${!siteConfig.firmDetails ? 'philosophy-grid--full' : ''}`}>
             <div className="philosophy-copy">
-              <span>Our services</span>
-              <h2>Support across six <span className="philosophy-highlight">service areas</span></h2>
-              <p>Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide.</p>
+              <SectionHeading
+                className="philosophy-copy__heading"
+                eyebrow="Our services"
+                title={<>Support across six <span className="philosophy-highlight">service areas</span></>}
+                description="Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide."
+              />
               <div className="pillar-list">
                 {services.map((service, index) => (
                   <article key={service.slug}>
@@ -96,7 +100,15 @@ function About() {
                   <article className="leader-card" key={leader.name}>
                     <div className="leader-portrait">
                       {leader.image ? (
-                        <img className={`leader-image${leader.containImage ? ' leader-image--contain' : ''}`} src={leader.image} alt={leader.name} />
+                        <img
+                          className={`leader-image${leader.containImage ? ' leader-image--contain' : ''}`}
+                          src={leader.image}
+                          alt={leader.name}
+                          width="600"
+                          height="800"
+                          loading="lazy"
+                          decoding="async"
+                        />
                       ) : (
                         <ImagePlaceholder label="Team portrait" searchTerms="professional portrait of a Nexus Trio team member" aspectRatio="4 / 3" altText={`Portrait of ${leader.name}`} className="image-placeholder--portrait" />
                       )}

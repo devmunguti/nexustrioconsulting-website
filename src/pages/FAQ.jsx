@@ -115,9 +115,9 @@ function FAQ() {
           </div>
           <div className="faq-page-cta__actions">
             <a className="gold-button" href="#/consultation">Book a consultation</a>
-            {faqContactDetails.phone.href
-              ? <a href={faqContactDetails.phone.href}>{faqContactDetails.phone.label}</a>
-              : <span>{faqContactDetails.phone.label}</span>}
+            {faqContactDetails.phone && (
+              <a href={faqContactDetails.phone.href}>{faqContactDetails.phone.label}</a>
+            )}
             <a href={faqContactDetails.email.href}>{faqContactDetails.email.label}</a>
           </div>
         </div>

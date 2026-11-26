@@ -4,31 +4,42 @@ import { motion } from 'motion/react'
 import logo from '../assets/nexus-trio-logo.png'
 import './LogoNavPreloader.css'
 
-const INTRO_DURATION_MS = 1000
+const INTRO_DURATION_MS = 500
 const REDUCED_MOTION_DURATION_MS = 240
-const HARD_TIMEOUT_MS = 3000
-const PENDING_CLASS = 'logo-nav-preloader-pending'
+const SESSION_STORAGE_KEY = 'nexus-trio-preloader-shown'
 
 function LogoNavPreloader() {
   const [isVisible, setIsVisible] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const finishRef = useRef(() => {})
+  const hasCheckedSession = useRef(false)
 
   useEffect(() => {
+    if (hasCheckedSession.current) return undefined
+    hasCheckedSession.current = true
+
+    let hasShownThisSession = false
+    try {
+      hasShownThisSession =
+        window.sessionStorage.getItem(SESSION_STORAGE_KEY) === 'true'
+      if (!hasShownThisSession) {
+        window.sessionStorage.setItem(SESSION_STORAGE_KEY, 'true')
+      }
+    } catch {
+      // Storage can be unavailable; show the preloader for this mount.
+    }
+
+    if (hasShownThisSession) return undefined
+
     const prefersReducedMotion =
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
     const totalDuration = prefersReducedMotion
       ? REDUCED_MOTION_DURATION_MS
       : INTRO_DURATION_MS
     const exitDuration = totalDuration * 0.4
-    const previousBodyOverflow = document.body.style.overflow
-    const previousHtmlOverflow = document.documentElement.style.overflow
     let hasFinished = false
 
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
-    document.documentElement.classList.add(PENDING_CLASS)
     const showFrame = window.requestAnimationFrame(() => {
       setReducedMotion(prefersReducedMotion)
       setIsVisible(true)
@@ -39,9 +50,6 @@ function LogoNavPreloader() {
       hasFinished = true
 
       setIsVisible(false)
-      document.body.style.overflow = previousBodyOverflow
-      document.documentElement.style.overflow = previousHtmlOverflow
-      document.documentElement.classList.remove(PENDING_CLASS)
     }
     finishRef.current = finish
 
@@ -49,17 +57,12 @@ function LogoNavPreloader() {
       () => setIsExiting(true),
       totalDuration - exitDuration,
     )
-    const finishTimer = window.setTimeout(finish, totalDuration + 100)
-    const safetyTimer = window.setTimeout(finish, HARD_TIMEOUT_MS)
+    const finishTimer = window.setTimeout(finish, totalDuration + 50)
 
     return () => {
       window.clearTimeout(exitTimer)
       window.clearTimeout(finishTimer)
-      window.clearTimeout(safetyTimer)
       window.cancelAnimationFrame(showFrame)
-      document.body.style.overflow = previousBodyOverflow
-      document.documentElement.style.overflow = previousHtmlOverflow
-      document.documentElement.classList.remove(PENDING_CLASS)
     }
   }, [])
 

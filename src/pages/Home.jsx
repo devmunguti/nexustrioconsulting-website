@@ -4,7 +4,9 @@ import CtaRay from '../components/sections/CtaRay'
 import StatsSection from '../components/sections/StatsSection'
 import TestimonialSection from '../components/sections/TestimonialSection'
 import PageMetadata from '../components/layout/PageMetadata'
+import Button from '../components/ui/Button'
 import ImagePlaceholder from '../components/ui/ImagePlaceholder'
+import SectionHeading from '../components/ui/SectionHeading'
 import { Calculator, FileCheck2, HandCoins, Lightbulb, ReceiptText, Users } from 'lucide-react'
 import jacobPortrait from '../assets/jacob-kioko.jpeg'
 import nicholasPortrait from '../assets/nicholas-muasa.jpeg'
@@ -47,16 +49,19 @@ function Home() {
         description="Accounting, tax, payroll, NGO project financial management, registration and business advisory support for organisations and business owners worldwide."
       />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex="-1">
         <section className="hero-section" id="home">
           <div className="container hero-card">
             <div className="hero-copy">
-              <p className="eyebrow">Kenya Regulatory &amp; Statutory Specialists</p>
+              <p className="eyebrow hero-typewriter">
+                <span className="hero-typewriter__animated" aria-hidden="true">Kenya Regulatory &amp; Statutory Specialists</span>
+                <span className="hero-typewriter__accessible">Kenya Regulatory &amp; Statutory Specialists</span>
+              </p>
               <h1>Financial clarity for <span>NGOs and growing</span> businesses</h1>
               <p className="hero-lead">Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide.</p>
               <div className="hero-actions">
-                <a className="gold-button" href="#/consultation">Book a Consultation <span>→</span></a>
-                <a className="outline-button" href="#/#services">View Services</a>
+                <Button href="#/consultation">Book a Consultation <span>→</span></Button>
+                <Button href="#/#services" variant="outline">View Services</Button>
               </div>
             </div>
             <div className="hero-image">
@@ -87,7 +92,7 @@ function Home() {
                 <h3>Financial and business support, explained clearly</h3>
                 <p>Nexus Trio Consulting supports NGOs, SMEs, startups and business owners with accounting, tax, payroll, registration and advisory services.</p>
                 <p>We work with clients worldwide. Tell us what you are trying to do, and we can discuss the support that fits.</p>
-                <div className="intro-actions"><a className="gold-button" href="#/about">About Our Firm</a></div>
+                <div className="intro-actions"><Button href="#/about">About Our Firm</Button></div>
               </div>
               <div className="arch-gallery">
                 <div className="arch arch-one"><img src={jacobPortrait} alt="Portrait of Jacob Kioko" width="1232" height="1277" loading="lazy" decoding="async" /></div>
@@ -104,14 +109,19 @@ function Home() {
           <div className="container">
             <div className="services-panel">
               <div className="panel-heading">
-                <div><span className="eyebrow">What we offer</span><h2>Our service areas</h2><p>Explore our core service areas for organisations and business owners.</p></div>
+                <SectionHeading
+                  className="panel-heading__copy"
+                  eyebrow="What we offer"
+                  title="Our service areas"
+                  description="Explore our core service areas for organisations and business owners."
+                />
                 <div className="carousel-arrows"><button type="button" aria-label="Previous services">←</button><button type="button" aria-label="Next services">→</button></div>
               </div>
               <div className="services-grid">
                 {services.map(([Icon, slug, title]) => {
                   const serviceInfo = servicesData.find((s) => s.slug === slug)
                   return (
-                    <a className="service-card" href={`#/services/${slug}`} key={slug}>
+                    <a className="card service-card" href={`#/services/${slug}`} key={slug}>
                       <div className="service-icon"><Icon aria-hidden="true" size={22} strokeWidth={1.8} /></div>
                       <h3>{title}</h3>
                       {serviceInfo?.summary && <p>{serviceInfo.summary}</p>}
@@ -126,10 +136,14 @@ function Home() {
 
         <section className="section audience-section" id="who-we-serve">
           <div className="container">
-            <div className="section-heading"><span className="eyebrow">Who we help</span><h2>NGOs, SMEs and startups</h2><p>We also support individual business owners around the world.</p></div>
+            <SectionHeading
+              eyebrow="Who we help"
+              title="NGOs, SMEs and startups"
+              description="We also support individual business owners around the world."
+            />
             <div className="audience-grid">
               {audiences.map(([tag, title, text, link]) => (
-                <article className="audience-card" key={title}>
+                <article className="card audience-card" key={title}>
                   <div className="audience-image"><ImagePlaceholder label={tag} searchTerms={`${tag} team reviewing a project budget`} aspectRatio="16 / 9" altText={`${tag} reviewing their financial records`} /><span>{tag}</span></div>
                   <div className="audience-copy"><h3>{title}</h3><p>{text}</p><a href="#/#contact">{link} <span>→</span></a></div>
                 </article>
@@ -146,7 +160,7 @@ function Home() {
               <div className="section-heading"><span className="eyebrow">Why choose us</span><h2>Reasons to work with Nexus Trio</h2></div>
               <div className="bento-grid">
                 {siteConfig.advantages.map((adv) => (
-                  <article className={`bento ${adv.type}`} key={adv.title}>
+                  <article className={`card bento ${adv.type}`} key={adv.title}>
                     <div><h3>{adv.title}</h3><p>{adv.text}</p></div>
                   </article>
                 ))}
@@ -158,9 +172,13 @@ function Home() {
         <section className="section scope-section">
           <div className="container scope-grid">
             <div className="scope-copy">
-              <span className="eyebrow">End-to-End Capabilities</span><h2>Everything your finances need in one place</h2>
-              <p>We function as your complete outsourced finance department or provide targeted statutory intervention to resolve bottlenecks and audit queries.</p>
-              <a className="gold-button" href="#/#contact">Get Started <span>→</span></a>
+              <SectionHeading
+                className="scope-copy__heading"
+                eyebrow="End-to-End Capabilities"
+                title="Everything your finances need in one place"
+                description="We function as your complete outsourced finance department or provide targeted statutory intervention to resolve bottlenecks and audit queries."
+              />
+              <Button href="#/#contact">Get Started <span>→</span></Button>
             </div>
             <div className="scope-image"><ImagePlaceholder label="Accounting and financial management" searchTerms="laptop, spreadsheet and calculator on a desk" aspectRatio="4 / 3" altText="Laptop displaying a spreadsheet beside a calculator" /><div><strong>Accounting and financial management</strong><span>Dedicated advisory and statutory compliance.</span></div></div>
           </div>
@@ -180,7 +198,12 @@ function Home() {
               </div>
             </div>
             <div className="contact-card" id="contact">
-              <span className="eyebrow">Fast Callback</span><h2>Book a consultation</h2><p>Let&apos;s discuss your statutory needs or donor compliance roadmap.</p>
+              <SectionHeading
+                className="contact-card__heading"
+                eyebrow="Fast Callback"
+                title="Book a consultation"
+                description="Let&apos;s discuss your statutory needs or donor compliance roadmap."
+              />
               {status === 'success' ? <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div> : (
                 <form onSubmit={(event) => handleSubmit(event, { type: 'homepage' })}>
                   <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p>
@@ -260,9 +283,9 @@ function Home() {
                     />
                     <span>I agree that Nexus Trio can use these details to respond to my enquiry.</span>
                   </label>
-                  <button className="gold-button" type="submit" disabled={status === 'sending'}>
+                  <Button type="submit" disabled={status === 'sending'}>
                     {status === 'sending' ? 'Sending…' : 'Send enquiry'}
-                  </button>
+                  </Button>
                 </form>
               )}
             </div>
@@ -271,7 +294,7 @@ function Home() {
 
         <section className="cta-section">
           <CtaRay />
-          <div className="container cta-copy"><span>Let’s talk about your needs</span><h2>Looking for accounting, tax or business support?</h2><p>Book a consultation or email us to start a conversation.</p><div><a className="gold-button" href="#/consultation">Book a consultation</a><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email us</a></div></div>
+          <div className="container cta-copy"><span>Let’s talk about your needs</span><h2>Looking for accounting, tax or business support?</h2><p>Book a consultation or email us to start a conversation.</p><div><Button href="#/consultation">Book a consultation</Button><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email us</a></div></div>
         </section>
       </main>
     </div>

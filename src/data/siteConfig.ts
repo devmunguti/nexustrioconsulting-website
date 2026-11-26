@@ -20,6 +20,8 @@ export interface StatItem {
 }
 
 export interface SiteConfig {
+  whatsappNumber: string | null
+  whatsappMessage: string
   company: {
     name: string
     legalName: string
@@ -77,6 +79,16 @@ export interface SiteConfig {
   }
 }
 
+const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+const configuredWhatsapp = /^\d{8,15}$/.test(whatsappNumber)
+  ? {
+      display: `+${whatsappNumber}`,
+      href: `https://wa.me/${whatsappNumber}`,
+      number: whatsappNumber,
+    }
+  : null
+const whatsappMessage = 'Hello Nexus Trio Consulting, I would like to make an enquiry.'
+
 /**
  * Centralised client-supplied facts.
  * When client facts (phone, WhatsApp, address, stats, leaders, registration)
@@ -84,13 +96,15 @@ export interface SiteConfig {
  * Public UI components must NOT render any section, row, or card whose value is null.
  */
 export const siteConfig: SiteConfig = {
+  whatsappNumber: configuredWhatsapp?.number ?? null,
+  whatsappMessage,
   company: {
     name: 'Nexus Trio Consulting',
     legalName: 'Nexus Trio Consulting Ltd',
     registrationNumber: null,
     email: 'info@nexustrioconsultancy.co.ke',
     phone: null,
-    whatsapp: null,
+    whatsapp: configuredWhatsapp,
     address: null,
     workingHours: null,
   },

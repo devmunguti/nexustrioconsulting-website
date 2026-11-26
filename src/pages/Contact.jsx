@@ -1,5 +1,7 @@
 import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
+import Button from '../components/ui/Button'
+import SectionHeading from '../components/ui/SectionHeading'
 import { useInquiryForm } from '../hooks/useInquiryForm'
 import { siteConfig } from '../data/siteConfig'
 
@@ -24,11 +26,12 @@ function Contact() {
       <section className="contact-main" id="contact-main">
         <div className="container contact-main-grid">
           <aside className="contact-office-column">
-            <div className="contact-intro">
-              <span>Contact our team</span>
-              <h2>Tell us what support you need</h2>
-              <p>Email us to discuss your organisation, business or question. We will confirm what information is useful for your enquiry.</p>
-            </div>
+            <SectionHeading
+              className="contact-intro"
+              eyebrow="Contact our team"
+              title="Tell us what support you need"
+              description="Email us to discuss your organisation, business or question. We will confirm what information is useful for your enquiry."
+            />
 
             <article className="emergency-card">
               <div>⚠</div>
@@ -59,11 +62,19 @@ function Contact() {
                     <h3>Phone and WhatsApp</h3>
                     <p>
                       {siteConfig.company.phone && (
-                        <span><a href={siteConfig.company.phone.href}>{siteConfig.company.phone.display}</a></span>
+                        <span>
+                          <a className="contact-channel-link contact-channel-link--call" href={siteConfig.company.phone.href}>
+                            Call {siteConfig.company.phone.display}
+                          </a>
+                        </span>
                       )}
                       {siteConfig.company.phone && siteConfig.company.whatsapp && <br />}
                       {siteConfig.company.whatsapp && (
-                        <span><a href={siteConfig.company.whatsapp.href}>WhatsApp: {siteConfig.company.whatsapp.display}</a></span>
+                        <span>
+                          <a className="contact-channel-link contact-channel-link--whatsapp" href={siteConfig.company.whatsapp.href}>
+                            WhatsApp: {siteConfig.company.whatsapp.display}
+                          </a>
+                        </span>
                       )}
                     </p>
                   </section>
@@ -96,7 +107,12 @@ function Contact() {
           </aside>
 
           <div className="inquiry-card" id="inquiry-form">
-            <div className="inquiry-heading"><span>Contact form</span><h2>Send us an inquiry</h2><p>Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p></div>
+            <SectionHeading
+              className="inquiry-heading"
+              eyebrow="Contact form"
+              title="Send us an inquiry"
+              description="Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents."
+            />
             {status === 'success' ? (
               <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div>
             ) : (
@@ -188,9 +204,9 @@ function Contact() {
                   <span>I agree that Nexus Trio can use these details to respond to my enquiry.</span>
                 </label>
                 <div className="inquiry-submit">
-                  <button type="submit" className="gold-button" disabled={status === 'sending'}>
+                  <Button type="submit" disabled={status === 'sending'}>
                     {status === 'sending' ? 'Sending…' : 'Send enquiry'}
-                  </button>
+                  </Button>
                   <span>Your details are sent by email.</span>
                 </div>
               </form>
@@ -209,7 +225,7 @@ function Contact() {
       </section>
 
       <section className="contact-cta">
-        <div className="container"><h2>Would you like to discuss your needs?</h2><p>Book a consultation or email us directly.</p><div><a className="gold-button" href="#/consultation">Book a consultation</a><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email Nexus Trio</a></div></div>
+        <div className="container"><h2>Would you like to discuss your needs?</h2><p>Book a consultation or email us directly.</p><div><Button href="#/consultation">Book a consultation</Button><a className="phone-button" href="mailto:info@nexustrioconsultancy.co.ke">Email Nexus Trio</a></div></div>
       </section>
     </PageShell>
   )

@@ -207,4 +207,8 @@
   .stats-card:hover {
     transform: none;
   }
+
+  .stats-card:hover .stats-card__number::after {
+    transform: translateX(-50%) scaleX(0);
+  }
 }
