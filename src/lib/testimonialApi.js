@@ -1,14 +1,27 @@
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '')
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
+const API_BASE_URL = (configuredApiUrl || (import.meta.env.DEV ? 'http://localhost:3001' : '')).replace(/\/$/, '')
 
 export async function testimonialApi(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...options,
-    credentials: 'include',
-    headers: {
-      ...(options.body ? { 'Content-Type': 'application/json' } : {}),
-      ...options.headers,
-    },
-  })
+  if (!API_BASE_URL) {
+    throw new Error('The booking service is not configured. Set VITE_API_URL to the deployed backend URL and rebuild the website.')
+  }
+
+  let response
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...options,
+      credentials: 'include',
+      headers: {
+        ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+        ...options.headers,
+      },
+    })
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error('Could not reach the booking service. Check that the backend is running, VITE_API_URL points to its public URL, and FRONTEND_ORIGIN allows this website.')
+    }
+    throw error
+  }
 
   if (response.status === 204) return null
 
