@@ -10,15 +10,21 @@ npm run dev
 ```
 
 Copy `.env.example` to `.env` for local development. The local API defaults to
-`http://localhost:3001`; set `VITE_WHATSAPP_NUMBER` to the business number in
-international format without `+` or spaces to enable the floating WhatsApp link.
+`http://localhost:3001`. The public WhatsApp number is configured in
+`src/data/enquiryConfig.js`.
+
+The home hero slide order and copy live in `src/data/heroSlides.js`; its
+auto-advance interval is `AUTO_ADVANCE_INTERVAL` in
+`src/components/sections/HeroCarousel.jsx`. Optional hero images belong in
+`public/images/hero/` (see that folder's `README.txt` for expected filenames).
+The enquiry recipient stays server-side in the backend's `INQUIRY_TO_EMAIL`
+configuration.
 
 For Vercel deployment, add `VITE_API_URL` as a Vercel environment variable and
 set it to the deployed Render API origin (for example,
-`https://your-service.onrender.com`). Set `VITE_WHATSAPP_NUMBER` there as well
-if the business number is ready. These `VITE_` values are public and are
-embedded in the frontend build, so do not put secrets in them. Set the value
-for every Vercel environment you use and redeploy after changing it. Production
+`https://your-service.onrender.com`). `VITE_API_URL` is public and embedded in
+the frontend build, so do not put secrets in it. Set the value for every
+Vercel environment you use and redeploy after changing it. Production
 builds do not fall back to `localhost:3001`; that default is only for local
 development.
 

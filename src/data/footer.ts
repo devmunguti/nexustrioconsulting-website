@@ -81,7 +81,7 @@ export const footerData: FooterData = {
     { label: 'Who We Serve', href: '#/who-we-serve' },
     { label: 'How We Work', href: '#/services#how-we-work' },
     { label: 'Testimonials', href: '#/#testimonials' },
-    { label: 'FAQ', href: '#/faq' },
+    { label: 'Team', href: '#/team' },
   ],
   services: services.map((service) => ({
     label: service.title,

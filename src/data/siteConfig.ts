@@ -1,3 +1,5 @@
+import { WHATSAPP_NUMBER } from './enquiryConfig'
+
 export interface LeaderProfile {
   role?: string
   name: string
@@ -79,7 +81,7 @@ export interface SiteConfig {
   }
 }
 
-const whatsappNumber = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+const whatsappNumber = WHATSAPP_NUMBER
 const configuredWhatsapp = /^\d{8,15}$/.test(whatsappNumber)
   ? {
       display: `+${whatsappNumber}`,

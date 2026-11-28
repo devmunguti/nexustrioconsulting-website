@@ -3,6 +3,7 @@ import CtaRay from '../components/sections/CtaRay'
 import ImagePlaceholder from '../components/ui/ImagePlaceholder'
 import SectionHeading from '../components/ui/SectionHeading'
 import PageMetadata from '../components/layout/PageMetadata'
+import TypedHeading from '../components/ui/TypedHeading'
 import { services } from '../data/services'
 import { siteConfig } from '../data/siteConfig'
 
@@ -26,7 +27,7 @@ function About() {
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>About Us</b></nav>
             <div className="about-hero-grid">
               <div>
-                <h1>About <span>Nexus Trio Consulting</span></h1>
+                <TypedHeading>About <span>Nexus Trio Consulting</span></TypedHeading>
                 <p>Nexus Trio Consulting provides accounting, tax, payroll, registration and business advisory services for NGOs, SMEs, startups and business owners worldwide.</p>
               </div>
               <blockquote><span>Our approach</span><p>We start by understanding your needs, then agree on the support and next steps.</p></blockquote>

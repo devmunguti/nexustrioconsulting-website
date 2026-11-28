@@ -1,5 +1,6 @@
 import Footer from './components/sections/Footer'
 import WhatsAppButton from './components/ui/WhatsAppButton'
+import { EnquiryDialogProvider } from './components/ui/EnquiryDialogProvider'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import './App.css'
 
@@ -8,7 +9,7 @@ const Services = lazy(() => import('./pages/Services'))
 const About = lazy(() => import('./pages/About'))
 const WhoWeServe = lazy(() => import('./pages/WhoWeServe'))
 const WhyUs = lazy(() => import('./pages/WhyUs'))
-const FAQ = lazy(() => import('./pages/FAQ'))
+const Team = lazy(() => import('./pages/Team'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Consultation = lazy(() => import('./pages/Consultation'))
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
@@ -38,10 +39,28 @@ function App() {
   const targetId = routeParts[2]
 
   useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    if (!window.location.hash || window.location.hash === '#/') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration
+    }
+  }, [])
+
+  useEffect(() => {
     const updateRoute = () => setRoute(window.location.hash)
     window.addEventListener('hashchange', updateRoute)
     return () => window.removeEventListener('hashchange', updateRoute)
   }, [])
+
+  useEffect(() => {
+    if (routePath !== '#/faq') return
+
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/team`)
+  }, [routePath])
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof IntersectionObserver === 'undefined') {
@@ -97,25 +116,27 @@ function App() {
   else if (routePath === '#/about') page = <About />
   else if (routePath === '#/who-we-serve') page = <WhoWeServe />
   else if (routePath === '#/why-us') page = <WhyUs />
-  else if (routePath === '#/faq') page = <FAQ />
+  else if (routePath === '#/team' || routePath === '#/faq') page = <Team />
   else if (routePath === '#/contact') page = <Contact />
   else if (routePath === '#/consultation') page = <Consultation />
   else if (routePath.startsWith('#/services/')) page = <ServiceDetail />
   else page = <Home />
 
   return (
-    <>
-      <Suspense fallback={<div className="page-loading" role="status">Loading page…</div>}>
-        <HashTargetScroller targetId={targetId} />
-        {page}
-      </Suspense>
-      {routePath !== '#/admin/testimonials' && (
-        <>
-          <Footer />
-          <WhatsAppButton />
-        </>
-      )}
-    </>
+    <EnquiryDialogProvider>
+      <>
+        <Suspense fallback={<div className="page-loading" role="status">Loading page…</div>}>
+          <HashTargetScroller targetId={targetId} />
+          {page}
+        </Suspense>
+        {routePath !== '#/admin/testimonials' && (
+          <>
+            <Footer />
+            <WhatsAppButton />
+          </>
+        )}
+      </>
+    </EnquiryDialogProvider>
   )
 }
 

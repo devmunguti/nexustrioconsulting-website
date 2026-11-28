@@ -1,0 +1,124 @@
+.nx-team-page .nx-team-intro {
+  padding: 52px 0 24px;
+  text-align: center;
+}
+
+.nx-team-intro h1 {
+  color: var(--navy);
+  font-size: clamp(32px, 5vw, 48px);
+}
+
+.nx-team-intro p,
+.nx-team-card__bio,
+.nx-team-cta p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.nx-team-intro p {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.nx-team-list {
+  padding: 24px 0 64px;
+}
+
+.nx-team-list__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.nx-team-card {
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(10, 35, 60, .06);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.nx-team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(10, 35, 60, .12);
+}
+
+.nx-team-card__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.nx-team-card__content {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.nx-team-card h2 {
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.2;
+}
+
+.nx-team-card__role {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.nx-team-card__button,
+.nx-team-cta button {
+  min-height: 44px;
+  justify-self: start;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.nx-team-card__button:hover,
+.nx-team-cta button:hover {
+  background: var(--navy-light);
+}
+
+.nx-team-cta {
+  padding: 36px 0 64px;
+  background: var(--bg-light);
+}
+
+.nx-team-cta .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nx-team-cta p {
+  max-width: 760px;
+  color: var(--slate);
+}
+
+@media (max-width: 620px) {
+  .nx-team-list__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nx-team-cta .container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-team-card {
+    transition: none;
+  }
+
+  .nx-team-card:hover {
+    transform: none;
+  }
+}

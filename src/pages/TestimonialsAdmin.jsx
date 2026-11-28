@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { testimonialApi } from '../lib/testimonialApi'
+import TypedHeading from '../components/ui/TypedHeading'
 
 function TestimonialsAdmin() {
   const [admin, setAdmin] = useState(null)
@@ -92,7 +93,7 @@ function TestimonialsAdmin() {
         <header className="testimonial-admin__header">
           <div>
             <span className="eyebrow">Private review area</span>
-            <h1>Testimonial moderation</h1>
+            <TypedHeading>Testimonial moderation</TypedHeading>
             <p>Only the configured website owner and developer accounts can review submissions.</p>
           </div>
           {admin && <button className="outline-button" onClick={signOut} type="button">Sign out</button>}

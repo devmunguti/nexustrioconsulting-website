@@ -1,6 +1,7 @@
 import PageShell from '../components/layout/PageShell'
 import TestimonialSection from '../components/sections/TestimonialSection'
 import PageMetadata from '../components/layout/PageMetadata'
+import TypedHeading from '../components/ui/TypedHeading'
 import { siteConfig } from '../data/siteConfig'
 
 function WhyUs() {
@@ -19,7 +20,7 @@ function WhyUs() {
           <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Why Us</b></nav>
           <div className="why-hero-copy">
             <span>Why choose us</span>
-            <h1>Support shaped around your needs</h1>
+            <TypedHeading>Support shaped around your needs</TypedHeading>
             <p>Practical, dependable financial and business advisory support shaped around the needs of your organisation.</p>
           </div>
         </div>

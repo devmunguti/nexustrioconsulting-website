@@ -1,0 +1,65 @@
+.nx-typing-heading {
+  position: relative;
+}
+
+.nx-typing-heading__accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.nx-typing-heading__reserve {
+  display: block;
+  visibility: hidden;
+}
+
+.nx-typing-heading__visual {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.nx-typing-heading > .nx-typing-heading__accessible,
+.nx-typing-heading > .nx-typing-heading__reserve,
+.nx-typing-heading > .nx-typing-heading__visual {
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+
+.nx-typing-heading .nx-typing-heading__character {
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+
+.nx-typing-heading .nx-typing-heading__cursor {
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+
+.nx-typing-heading__cursor {
+  display: inline-block;
+  width: 2px;
+  height: .85em;
+  margin-left: .06em;
+  transform: translateY(.08em);
+  background: currentColor;
+  animation: nx-typing-caret 700ms steps(2, start) infinite;
+}
+
+@keyframes nx-typing-caret {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-typing-heading__cursor {
+    display: none;
+    animation: none;
+  }
+}

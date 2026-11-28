@@ -2,6 +2,7 @@ import PageShell from '../components/layout/PageShell'
 import PageMetadata from '../components/layout/PageMetadata'
 import Button from '../components/ui/Button'
 import SectionHeading from '../components/ui/SectionHeading'
+import TypedHeading from '../components/ui/TypedHeading'
 import { useInquiryForm } from '../hooks/useInquiryForm'
 import { siteConfig } from '../data/siteConfig'
 
@@ -18,7 +19,7 @@ function Contact() {
       <section className="contact-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Contact Us</b></nav>
-          <h1>Get in touch with Nexus Trio</h1>
+          <TypedHeading>Get in touch with Nexus Trio</TypedHeading>
           <p>Contact us about accounting, tax, payroll, business registration, project finance or business advisory support. We work with clients worldwide.</p>
         </div>
       </section>
@@ -111,7 +112,7 @@ function Contact() {
               className="inquiry-heading"
               eyebrow="Contact form"
               title="Send us an inquiry"
-              description="Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents."
+              description="You will get a response within 24Hrs"
             />
             {status === 'success' ? (
               <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div>

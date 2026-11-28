@@ -1,0 +1,255 @@
+.nx-header .nx-services-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nx-header .nav-links > a,
+.nx-header .nx-services-nav-item > a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.nx-header .navbar-button {
+  min-height: 44px;
+}
+
+.nx-header .menu-button {
+  width: 44px;
+  height: 44px;
+  display: none;
+  place-items: center;
+  padding: 0;
+}
+
+.nx-header .nx-services-nav-item__toggle {
+  display: grid;
+  width: 28px;
+  min-height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+}
+
+.nx-header .nx-services-nav-item__toggle[aria-expanded="true"] svg,
+.nx-header .nx-mobile-services__heading button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.nx-header .nx-services-nav-item__toggle svg,
+.nx-header .nx-mobile-services__heading button svg {
+  transition: transform 160ms ease;
+}
+
+.nx-header .nx-services-dropdown {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 17px);
+  left: 50%;
+  display: grid;
+  width: min(760px, calc(100vw - 32px));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 14px;
+  transform: translateX(-50%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(10, 35, 60, .18);
+  animation: nx-services-dropdown-enter 160ms ease-out both;
+}
+
+.nx-header .nx-services-dropdown::before {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 18px;
+  content: '';
+}
+
+.nx-header .nx-services-dropdown__link {
+  display: flex;
+  min-width: 0;
+  min-height: 70px;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 11px;
+  border-radius: 8px;
+  color: var(--navy);
+}
+
+.nx-header .nx-services-dropdown__link:hover,
+.nx-header .nx-services-dropdown__link:focus-visible {
+  background: var(--bg-light);
+}
+
+.nx-header .nx-services-dropdown__link > svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--gold-text);
+}
+
+.nx-header .nx-services-dropdown__link span {
+  min-width: 0;
+}
+
+.nx-header .nx-services-dropdown__link strong,
+.nx-header .nx-services-dropdown__link small {
+  display: block;
+}
+
+.nx-header .nx-services-dropdown__link strong {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.nx-header .nx-services-dropdown__link small {
+  overflow: hidden;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nx-header .nx-mobile-services,
+.nx-header .nx-mobile-services__list {
+  display: grid;
+}
+
+.nx-header .nx-header__mobile-nav {
+  max-height: calc(100vh - 68px);
+  max-height: calc(100dvh - 68px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nx-header .nx-mobile-services__heading {
+  display: flex;
+  align-items: center;
+}
+
+.nx-header .nx-mobile-services__heading a,
+.nx-header .nx-mobile-services__heading button {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.nx-header .nx-mobile-services__heading a {
+  flex: 1;
+}
+
+.nx-header .nx-mobile-services__heading button {
+  width: 44px;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+}
+
+.nx-header .nx-mobile-services__link {
+  display: flex;
+  min-height: 60px;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid #edf0f2;
+  color: var(--navy);
+}
+
+.nx-header .nx-mobile-services__link svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--gold-text);
+}
+
+.nx-header .nx-mobile-services__link strong,
+.nx-header .nx-mobile-services__link small {
+  display: block;
+}
+
+.nx-header .nx-mobile-services__link strong {
+  font-size: 14px;
+}
+
+.nx-header .nx-mobile-services__link small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.nx-header .nx-mobile-nav-link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes nx-services-dropdown-enter {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (min-width: 851px) and (max-width: 1100px) {
+  .nx-header .nav-links,
+  .nx-header .navbar-button {
+    display: none;
+  }
+
+  .nx-header .menu-button {
+    display: grid;
+  }
+
+  .nx-header .nx-header__mobile-nav:not([hidden]) {
+    display: grid;
+    position: absolute;
+    top: 82px;
+    max-height: calc(100vh - 82px);
+    max-height: calc(100dvh - 82px);
+    right: 0;
+    left: 0;
+    padding: 12px 16px 18px;
+    border-top: 1px solid #edf0f2;
+    background: #fff;
+    box-shadow: 0 12px 20px rgba(10, 35, 60, .12);
+  }
+}
+
+@media (max-width: 850px) {
+  .nx-header .menu-button {
+    display: grid;
+  }
+
+  .nx-header .nx-header__mobile-nav[hidden] {
+    display: none;
+  }
+
+  .nx-header .nx-header__mobile-nav:not([hidden]) {
+    display: grid;
+  }
+}
+
+@media (max-width: 480px) {
+  .nx-header .nx-header__mobile-nav {
+    top: 64px;
+    max-height: calc(100vh - 64px);
+    max-height: calc(100dvh - 64px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-header .nx-services-dropdown,
+  .nx-header .nx-services-nav-item__toggle svg,
+  .nx-header .nx-mobile-services__heading button svg {
+    animation: none;
+    transition: none;
+  }
+}

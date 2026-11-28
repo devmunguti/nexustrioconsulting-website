@@ -2,6 +2,7 @@ import PageShell from '../components/layout/PageShell'
 import TestimonialSection from '../components/sections/TestimonialSection'
 import PageMetadata from '../components/layout/PageMetadata'
 import SectionHeading from '../components/ui/SectionHeading'
+import TypedHeading from '../components/ui/TypedHeading'
 import { siteConfig } from '../data/siteConfig'
 
 const sectors = [
@@ -44,7 +45,7 @@ function WhoWeServe() {
           <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Who We Serve</b></nav>
           <div className="who-hero-grid">
             <div>
-              <h1>Who we help</h1>
+              <TypedHeading>Who we help</TypedHeading>
               <p>Nexus Trio supports NGOs, SMEs, startups and individual business owners around the world.</p>
             </div>
           </div>

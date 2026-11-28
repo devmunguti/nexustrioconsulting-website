@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--whatsapp);
+  background: #25d366;
   color: #fff;
   box-shadow: var(--card-shadow-hover);
 }
@@ -44,12 +44,16 @@ body:has(.logo-nav-preloader) .whatsapp-button {
 
 @media (prefers-reduced-motion: no-preference) {
   .whatsapp-button {
-    transition: transform 180ms ease, box-shadow 180ms ease;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
   }
 
   .whatsapp-button:hover,
   .whatsapp-button:focus-visible {
     transform: scale(1.06);
+  }
+
+  .whatsapp-button:hover {
+    background: #128c7e;
   }
 }
 

@@ -2,11 +2,16 @@ import { useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import CtaRay from '../components/sections/CtaRay'
 import Glossary from '../components/sections/Glossary'
+import { useEnquiryDialog } from '../components/ui/EnquiryDialogContext'
 import SectionHeading from '../components/ui/SectionHeading'
+import TypedHeading from '../components/ui/TypedHeading'
 import PageMetadata from '../components/layout/PageMetadata'
 import { services } from '../data/services'
+import { heroSlides } from '../data/heroSlides'
 import { useInquiryForm } from '../hooks/useInquiryForm'
 import { siteConfig } from '../data/siteConfig'
+import { taxTerms } from '../data/taxTerms'
+import './ServicesEnhancements.css'
 
 const faqs = [
   ['How do I register my company?', 'The process depends on the type of business and its owners. Contact us to discuss the setup support you need and the documents to prepare.'],
@@ -16,7 +21,14 @@ const faqs = [
 function Services() {
   const [openFaq, setOpenFaq] = useState(0)
   const { status, error, message, handleSubmit } = useInquiryForm()
+  const { openEnquiry } = useEnquiryDialog()
   const activeStats = siteConfig.stats.filter((s) => s.value !== null)
+  const explainers = {
+    'kra-pin-and-tax-registration': taxTerms.find(({ term }) => term === 'KRA PIN'),
+    'etims-compliance': taxTerms.find(({ term }) => term === 'eTIMS'),
+    'paye-and-payroll-taxes': taxTerms.filter(({ term }) => ['PAYE', 'SHIF'].includes(term)),
+    'withholding-tax': taxTerms.find(({ term }) => term === 'WHT'),
+  }
 
   return (
     <div className="services-page">
@@ -30,7 +42,7 @@ function Services() {
         <section className="services-hero">
           <div className="container">
             <nav className="breadcrumb" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><b>Our Services</b></nav>
-            <h1>Comprehensive Financial &amp; <span>Statutory Advisory</span></h1>
+            <TypedHeading>Comprehensive Financial &amp; <span>Statutory Advisory</span></TypedHeading>
             <i />
             <p>Accounting, tax, payroll, project finance and business advisory for organisations and business owners worldwide, with support for Kenyan requirements.</p>
             {activeStats.length > 0 && (
@@ -64,6 +76,43 @@ function Services() {
                   <a href={`#/services/${service.slug}`}>View service <b>→</b></a>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="nx-tax-services" aria-labelledby="nx-tax-services-heading">
+          <div className="container">
+            <div className="nx-tax-services__heading">
+              <span>Tax support</span>
+              <h2 id="nx-tax-services-heading">Explore tax services</h2>
+            </div>
+            <div className="nx-tax-services__grid">
+              {heroSlides.map((slide) => {
+                const explainer = explainers[slide.slug]
+                const explainerItems = Array.isArray(explainer) ? explainer : explainer ? [explainer] : []
+
+                return (
+                  <article className="nx-tax-services__card" id={slide.slug} key={slide.slug}>
+                    <span className="nx-tax-services__label">{slide.label}</span>
+                    <h3>{slide.headline}</h3>
+                    <p>{slide.line}</p>
+                    {explainerItems.length > 0 && (
+                      <details className="nx-tax-services__explainer">
+                        <summary>What is this?</summary>
+                        {explainerItems.map(({ term, definition }) => (
+                          <p key={term}><strong>{term}:</strong> {definition}</p>
+                        ))}
+                      </details>
+                    )}
+                    <button
+                      type="button"
+                      onClick={(event) => openEnquiry(slide.enquiry, event.currentTarget)}
+                    >
+                      Talk to us about this
+                    </button>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -108,7 +157,7 @@ function Services() {
               <p>Let&apos;s discuss your statutory needs or donor compliance roadmap. No obligation.</p>
               {status === 'success' ? <div className="form-notice form-success" role="status"><strong>Request sent</strong><p>{message}</p></div> : (
                 <form onSubmit={(event) => handleSubmit(event, { type: 'services' })}>
-                  <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p>
+                  <p className="form-notice" role="note">You will get a response within 24Hrs</p>
                   {error && <p className="form-error" id="services-form-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
                   <label htmlFor="services-name">Full Name <span aria-hidden="true">*</span></label>
                   <input

@@ -1,0 +1,30 @@
+.consultation-quick {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 44px;
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  background: #fff;
+  box-shadow: var(--card-shadow);
+}
+
+.consultation-quick__heading {
+  margin-bottom: 28px;
+}
+
+.consultation-quick > button {
+  min-height: 48px;
+}
+
+.consultation-quick__note {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .consultation-quick {
+    padding: 28px 20px;
+  }
+}

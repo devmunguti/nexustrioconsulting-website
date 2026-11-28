@@ -1,9 +1,17 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
 const API_BASE_URL = (configuredApiUrl || (import.meta.env.DEV ? 'http://localhost:3001' : '')).replace(/\/$/, '')
 
+export class ApiRequestError extends Error {
+  constructor(message, status = null) {
+    super(message)
+    this.name = 'ApiRequestError'
+    this.status = status
+  }
+}
+
 export async function testimonialApi(path, options = {}) {
   if (!API_BASE_URL) {
-    throw new Error('The booking service is not configured. Set VITE_API_URL to the deployed backend URL and rebuild the website.')
+    throw new ApiRequestError('The booking service is not configured. Set VITE_API_URL to the deployed backend URL and rebuild the website.')
   }
 
   let response
@@ -18,7 +26,7 @@ export async function testimonialApi(path, options = {}) {
     })
   } catch (error) {
     if (error instanceof TypeError) {
-      throw new Error('Could not reach the booking service. Check that the backend is running, VITE_API_URL points to its public URL, and FRONTEND_ORIGIN allows this website.')
+      throw new ApiRequestError('Could not reach the booking service. Check that the backend is running, VITE_API_URL points to its public URL, and FRONTEND_ORIGIN allows this website.')
     }
     throw error
   }
@@ -32,17 +40,17 @@ export async function testimonialApi(path, options = {}) {
       payload = JSON.parse(responseText)
     } catch {
       if (response.ok) {
-        throw new Error('The API returned an invalid response. Check VITE_API_URL and confirm the API is running.')
+        throw new ApiRequestError('The API returned an invalid response. Check VITE_API_URL and confirm the API is running.', response.status)
       }
     }
   }
 
   if (!response.ok) {
-    throw new Error(payload?.error || `The request failed (${response.status}). Please try again later.`)
+    throw new ApiRequestError(payload?.error || `The request failed (${response.status}). Please try again later.`, response.status)
   }
 
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
-    throw new Error('The API returned an invalid response. Check VITE_API_URL and confirm the API is running.')
+    throw new ApiRequestError('The API returned an invalid response. Check VITE_API_URL and confirm the API is running.', response.status)
   }
 
   return payload

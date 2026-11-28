@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { siteConfig } from '../../data/siteConfig'
+import { useEnquiryDialog } from './EnquiryDialogContext'
 import './WhatsAppButton.css'
 
 function WhatsAppButton() {
-  const { whatsappNumber, whatsappMessage } = siteConfig
+  const { whatsappNumber } = siteConfig
+  const { openEnquiry } = useEnquiryDialog()
   const buttonRef = useRef(null)
 
   useEffect(() => {
@@ -52,16 +54,16 @@ function WhatsAppButton() {
 
   if (!whatsappNumber) return null
 
-  const href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
-
   return (
     <a
       ref={buttonRef}
       className="whatsapp-button"
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
+      href="#/consultation"
+      aria-label="Choose how to reach us"
+      onClick={(event) => {
+        event.preventDefault()
+        openEnquiry('General enquiry', event.currentTarget)
+      }}
     >
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
         <path d="M20.2 3.8A11.5 11.5 0 0 0 2.1 17.7L.7 23l5.5-1.4A11.5 11.5 0 0 0 20.2 3.8Z" />

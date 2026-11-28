@@ -7,21 +7,30 @@ import PageMetadata from '../components/layout/PageMetadata'
 import Button from '../components/ui/Button'
 import ImagePlaceholder from '../components/ui/ImagePlaceholder'
 import SectionHeading from '../components/ui/SectionHeading'
+import TypedHeading from '../components/ui/TypedHeading'
 import { Calculator, FileCheck2, HandCoins, Lightbulb, ReceiptText, Users } from 'lucide-react'
 import jacobPortrait from '../assets/jacob-kioko.jpeg'
 import nicholasPortrait from '../assets/nicholas-muasa.jpeg'
 import companyLogo from '../assets/nexus-trio-logo-landscape.png'
 import { useInquiryForm } from '../hooks/useInquiryForm'
-import { services as servicesData } from '../data/services'
 import { siteConfig } from '../data/siteConfig'
+import HeroCarousel from '../components/sections/HeroCarousel'
+import HomeTermExplainers from '../components/sections/HomeTermExplainers'
+import { heroSlides } from '../data/heroSlides'
+import { teamMembers } from '../data/team'
+import '../components/sections/HomeEnhancements.css'
 
-const services = [
-  [HandCoins, 'ngo-project-financial-management', 'Making every donor shilling count'],
-  [FileCheck2, 'business-registration-corporate-services', 'Start legally. Stay compliant.'],
-  [Users, 'payroll-hr-administration', 'Pay your people right, on time, every time'],
-  [Lightbulb, 'business-advisory-consultancy', 'Smart decisions for growing businesses'],
-  [Calculator, 'accounting-financial-management', 'Know your numbers. Run your business with confidence.'],
-  [ReceiptText, 'tax-advisory-compliance', 'Pay what you owe, not a shilling more'],
+const serviceIcons = [
+  FileCheck2,
+  ReceiptText,
+  Calculator,
+  Lightbulb,
+  FileCheck2,
+  FileCheck2,
+  ReceiptText,
+  Users,
+  HandCoins,
+  Calculator,
 ]
 
 const audiences = [
@@ -39,11 +48,13 @@ const faqs = [
 
 function Home() {
   const [openFaq, setOpenFaq] = useState(0)
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0)
   const { status, error, message, handleSubmit } = useInquiryForm()
 
   return (
-    <div className="home-page">
+    <div className="home-page nx-home-page">
       <Navbar active="Home" />
+      <HeroCarousel activeIndex={activeSlideIndex} onActiveIndexChange={setActiveSlideIndex} />
       <PageMetadata
         title="Nexus Trio Consulting | Accounting, Tax and Business Support"
         description="Accounting, tax, payroll, NGO project financial management, registration and business advisory support for organisations and business owners worldwide."
@@ -53,11 +64,10 @@ function Home() {
         <section className="hero-section" id="home">
           <div className="container hero-card">
             <div className="hero-copy">
-              <p className="eyebrow hero-typewriter">
-                <span className="hero-typewriter__animated" aria-hidden="true">Kenya Regulatory &amp; Statutory Specialists</span>
-                <span className="hero-typewriter__accessible">Kenya Regulatory &amp; Statutory Specialists</span>
+              <p className="eyebrow">
+                Kenya Regulatory &amp; Statutory Specialists
               </p>
-              <h1>Financial clarity for <span>NGOs and growing</span> businesses</h1>
+              <TypedHeading>Financial clarity for <span className="nx-home-hero__accent">growing businesses</span> and NGOs</TypedHeading>
               <p className="hero-lead">Accounting, tax, payroll, project finance and business advisory support for organisations and business owners worldwide.</p>
               <div className="hero-actions">
                 <Button href="#/consultation">Book a Consultation <span>→</span></Button>
@@ -111,6 +121,35 @@ function Home() {
           </div>
         </section>
 
+        <section className="nx-team-preview" aria-labelledby="nx-team-preview-heading">
+          <div className="container">
+            <div className="nx-team-preview__header">
+              <div>
+                <h2 id="nx-team-preview-heading">Meet our team</h2>
+                <p>Meet the people behind Nexus Trio Consulting.</p>
+              </div>
+              <a href="#/team">Meet the team</a>
+            </div>
+            <div className="nx-team-preview__cards">
+              {teamMembers.map((member) => (
+                <article className="nx-team-preview__card" key={member.name}>
+                  <img
+                    src={member.photoPath}
+                    alt={`Portrait of ${member.credentials} ${member.name}${member.postNominals ? `, ${member.postNominals}` : ''}`}
+                    width="76"
+                    height="76"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <h3>{member.credentials} {member.name}{member.postNominals ? `, ${member.postNominals}` : ''}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="section services-section" id="services">
           <div className="container">
             <div className="services-panel">
@@ -124,18 +163,44 @@ function Home() {
                 <div className="carousel-arrows"><button type="button" aria-label="Previous services">←</button><button type="button" aria-label="Next services">→</button></div>
               </div>
               <div className="services-grid">
-                {services.map(([Icon, slug, title]) => {
-                  const serviceInfo = servicesData.find((s) => s.slug === slug)
+                {heroSlides.map((slide, index) => {
+                  const Icon = serviceIcons[index]
                   return (
-                    <a className="card service-card" href={`#/services/${slug}`} key={slug}>
+                    <a
+                      className="card service-card"
+                      href="#/#home-carousel"
+                      key={slide.enquiry}
+                      onClick={() => setActiveSlideIndex(index)}
+                    >
                       <div className="service-icon"><Icon aria-hidden="true" size={22} strokeWidth={1.8} /></div>
-                      <h3>{title}</h3>
-                      {serviceInfo?.summary && <p>{serviceInfo.summary}</p>}
+                      <h3>{slide.label}</h3>
+                      <p>{slide.headline}</p>
                       <span className="service-card__link">View service <span aria-hidden="true">→</span></span>
                     </a>
                   )
                 })}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="nx-home-process" aria-labelledby="nx-home-process-heading">
+          <div className="container">
+            <div className="nx-home-process__heading">
+              <h2 id="nx-home-process-heading">How it works</h2>
+            </div>
+            <div className="nx-home-process__steps">
+              {[
+                ['01', 'Tell us what you need', 'Share the question or task you would like help with.'],
+                ['02', 'We review your details', 'We look at the information you provide and discuss what support may fit.'],
+                ['03', 'We agree next steps', 'We explain the proposed work and confirm what happens next.'],
+              ].map(([number, title, text]) => (
+                <article className="nx-home-process__step" key={number}>
+                  <span>{number}</span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -157,6 +222,8 @@ function Home() {
             </div>
           </div>
         </section>
+
+        <HomeTermExplainers />
 
         <TestimonialSection />
 
@@ -212,7 +279,7 @@ function Home() {
               />
               {status === 'success' ? <div className="form-notice form-success" role="status"><strong>Enquiry sent</strong><p>{message}</p></div> : (
                 <form onSubmit={(event) => handleSubmit(event, { type: 'homepage' })}>
-                  <p className="form-notice" role="note">Your inquiry will be emailed through Resend and is not stored on this website. Do not include passwords or confidential financial documents.</p>
+                  <p className="form-notice" role="note">You will get a response within 24Hrs</p>
                   {error && <p className="form-error" id="home-form-error" role="alert">{error} You can also email <a href={`mailto:${siteConfig.company.email}`}>{siteConfig.company.email}</a>.</p>}
                   <label htmlFor="home-name">Full Name <span aria-hidden="true">*</span></label>
                   <input

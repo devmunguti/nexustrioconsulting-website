@@ -4,34 +4,16 @@ import { motion } from 'motion/react'
 import logo from '../assets/nexus-trio-logo.png'
 import './LogoNavPreloader.css'
 
-const INTRO_DURATION_MS = 500
+const INTRO_DURATION_MS = 1000
 const REDUCED_MOTION_DURATION_MS = 240
-const SESSION_STORAGE_KEY = 'nexus-trio-preloader-shown'
 
 function LogoNavPreloader() {
   const [isVisible, setIsVisible] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const finishRef = useRef(() => {})
-  const hasCheckedSession = useRef(false)
 
   useEffect(() => {
-    if (hasCheckedSession.current) return undefined
-    hasCheckedSession.current = true
-
-    let hasShownThisSession = false
-    try {
-      hasShownThisSession =
-        window.sessionStorage.getItem(SESSION_STORAGE_KEY) === 'true'
-      if (!hasShownThisSession) {
-        window.sessionStorage.setItem(SESSION_STORAGE_KEY, 'true')
-      }
-    } catch {
-      // Storage can be unavailable; show the preloader for this mount.
-    }
-
-    if (hasShownThisSession) return undefined
-
     const prefersReducedMotion =
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
     const totalDuration = prefersReducedMotion
